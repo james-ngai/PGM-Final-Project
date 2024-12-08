@@ -1,0 +1,1210 @@
+W1207 04:48:57.030000 2782011 site-packages/torch/distributed/run.py:793] 
+W1207 04:48:57.030000 2782011 site-packages/torch/distributed/run.py:793] *****************************************
+W1207 04:48:57.030000 2782011 site-packages/torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1207 04:48:57.030000 2782011 site-packages/torch/distributed/run.py:793] *****************************************
+current rank: 1/2
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/utils/data/sampler.py:76: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn(
+Distributed initialized.
+current rank: 0/2
+
+Training options:
+{
+  "network_kwargs": {
+    "class_name": "networks.pixart_alpha.PixArt_alpha_DDIM",
+    "img_channels": 4,
+    "C_1": 0.001,
+    "C_2": 0.008,
+    "M": 1000,
+    "beta_start": 0.0001,
+    "beta_end": 0.02,
+    "pretrained": true,
+    "load_encoders": false,
+    "load_vae": true,
+    "input_size": 64,
+    "ckpt_path": "/usr3/hcontant/pixart-project-recent/ckpts/pixart/pixart-512/PixArt-XL-2-512x512.pth",
+    "text_encoder_ckpt_path": "/usr3/hcontant/pixart-project-recent/ckpts/t5"
+  },
+  "reward_kwargs": {
+    "class_name": "ImageReward.ImageReward.ImageReward",
+    "rm_ckpt_path": "/data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/ImageReward.pt",
+    "med_config": "/data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/med_config.json"
+  },
+  "dataset_kwargs": {
+    "class_name": "dataloader.prompt.PromptDataset",
+    "file_path": "/usr3/hcontant/Datasets/Filtered/HPDv2.jsonl"
+  },
+  "eval_dataset_kwargs": {
+    "class_name": "dataloader.prompt.PromptDataset",
+    "file_path": "/usr3/hcontant/Datasets/Filtered/SPO.jsonl"
+  },
+  "data_loader_kwargs": {
+    "batch_size": 16,
+    "num_workers": 8,
+    "prefetch_factor": 4,
+    "pin_memory": true
+  },
+  "loss_kwargs": {
+    "class_name": "losses.cm_align.ECALoss",
+    "offset_dfun": "phuber",
+    "phuber_c": 0.03,
+    "sigma_init": 156.6155,
+    "sigma_dist": "uniform",
+    "P_mean": 0.0,
+    "P_std": 3.0,
+    "rewrad_loss_scale": 1.0,
+    "cfg_scale": 4.5,
+    "loss_type": "eca"
+  },
+  "optimizer_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "lr": 5e-06,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-11
+  },
+  "ema_kwargs": {
+    "class_name": "training.utils.ema.SimpleEMA",
+    "decay": 0.9
+  },
+  "run_dir": "/usr3/hcontant/pixart-project-recent/outputs-SPO/00000-gpus2-batch16-bf16-PixArt-alpha-bs16x32-fp16-textenc-uniform-skip5-5step-stu-data-2step-lr5e-6-wt=snr-sample-2step-t=4.0",
+  "loss_scaling": 1.0,
+  "total_steps": 20000,
+  "grad_accumulation": 1,
+  "seed": 112,
+  "use_rlhf": false,
+  "step_per_tick": 10,
+  "image_tick": 10,
+  "snapshot_ticks": 50,
+  "state_dump_ticks": 50,
+  "use_fsdp": false,
+  "precision": "bf16",
+  "batch_size": 16
+}
+
+Output directory:        /usr3/hcontant/pixart-project-recent/outputs-SPO/00000-gpus2-batch16-bf16-PixArt-alpha-bs16x32-fp16-textenc-uniform-skip5-5step-stu-data-2step-lr5e-6-wt=snr-sample-2step-t=4.0
+Number of GPUs:          2
+Batch size:              16
+Precision:               bf16
+
+Creating output directory...
+Loading dataset...
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/utils/data/sampler.py:76: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn(
+Dataset length: 3400
+Loading text encoder...
+Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:  11%|█         | 1/9 [00:01<00:13,  1.69s/it]Loading checkpoint shards:  11%|#1        | 1/9 [00:01<00:13,  1.66s/it]Loading checkpoint shards:  22%|██▏       | 2/9 [00:03<00:11,  1.60s/it]Loading checkpoint shards:  22%|##2       | 2/9 [00:03<00:10,  1.57s/it]Loading checkpoint shards:  33%|███▎      | 3/9 [00:04<00:09,  1.56s/it]Loading checkpoint shards:  33%|###3      | 3/9 [00:04<00:09,  1.54s/it]Loading checkpoint shards:  44%|████▍     | 4/9 [00:05<00:07,  1.42s/it]Loading checkpoint shards:  44%|####4     | 4/9 [00:05<00:07,  1.41s/it]Loading checkpoint shards:  67%|██████▋   | 6/9 [00:06<00:02,  1.41it/s]Loading checkpoint shards:  67%|######6   | 6/9 [00:06<00:02,  1.42it/s]Loading checkpoint shards:  89%|████████▉ | 8/9 [00:06<00:00,  2.28it/s]Loading checkpoint shards:  89%|########8 | 8/9 [00:06<00:00,  2.30it/s]Loading checkpoint shards: 100%|██████████| 9/9 [00:06<00:00,  1.42it/s]
+Loading checkpoint shards: 100%|##########| 9/9 [00:06<00:00,  1.43it/s]
+Constructing network...
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Loading pretrained model...
+/usr3/hcontant/pixart-project-recent/networks/pixart_alpha/__init__.py:54: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path)
+Loading pretrained model...
+/usr3/hcontant/pixart-project-recent/networks/pixart_alpha/__init__.py:54: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path)
+Loading VAE...
+type: <class 'networks.pixart_alpha.PixArt_alpha_DDIM'>
+Setting up DDP...
+Setting up optimizer...
+Training for 20000 steps...
+
+/usr3/hcontant/pixart-project-recent/training/training_loop.py:301: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  valid_text_embs, valid_masks = torch.load("./metrics/parti20.pt", map_location='cpu')
+Step tensor([0, 0, 0, 0], device='cuda:0') -> tensor([50, 50, 50, 50], device='cuda:0')
+Noise level tensor([156.6157, 156.6157, 156.6157, 156.6157], device='cuda:0') -> tensor([95.7398, 95.7398, 95.7398, 95.7398], device='cuda:0')
+Step tensor([50, 50, 50, 50], device='cuda:0') -> tensor([100, 100, 100, 100], device='cuda:0')
+Noise level tensor([95.7398, 95.7398, 95.7398, 95.7398], device='cuda:0') -> tensor([60.0261, 60.0261, 60.0261, 60.0261], device='cuda:0')
+Step tensor([100, 100, 100, 100], device='cuda:0') -> tensor([150, 150, 150, 150], device='cuda:0')
+Noise level tensor([60.0261, 60.0261, 60.0261, 60.0261], device='cuda:0') -> tensor([38.5958, 38.5958, 38.5958, 38.5958], device='cuda:0')
+Step tensor([150, 150, 150, 150], device='cuda:0') -> tensor([200, 200, 200, 200], device='cuda:0')
+Noise level tensor([38.5958, 38.5958, 38.5958, 38.5958], device='cuda:0') -> tensor([25.4464, 25.4464, 25.4464, 25.4464], device='cuda:0')
+Step tensor([200, 200, 200, 200], device='cuda:0') -> tensor([250, 250, 250, 250], device='cuda:0')
+Noise level tensor([25.4464, 25.4464, 25.4464, 25.4464], device='cuda:0') -> tensor([17.1982, 17.1982, 17.1982, 17.1982], device='cuda:0')
+Step tensor([250, 250, 250, 250], device='cuda:0') -> tensor([300, 300, 300, 300], device='cuda:0')
+Noise level tensor([17.1982, 17.1982, 17.1982, 17.1982], device='cuda:0') -> tensor([11.9100, 11.9100, 11.9100, 11.9100], device='cuda:0')
+Step tensor([300, 300, 300, 300], device='cuda:0') -> tensor([350, 350, 350, 350], device='cuda:0')
+Noise level tensor([11.9100, 11.9100, 11.9100, 11.9100], device='cuda:0') -> tensor([8.4448, 8.4448, 8.4448, 8.4448], device='cuda:0')
+Step tensor([350, 350, 350, 350], device='cuda:0') -> tensor([400, 400, 400, 400], device='cuda:0')
+Noise level tensor([8.4448, 8.4448, 8.4448, 8.4448], device='cuda:0') -> tensor([6.1239, 6.1239, 6.1239, 6.1239], device='cuda:0')
+Step tensor([400, 400, 400, 400], device='cuda:0') -> tensor([450, 450, 450, 450], device='cuda:0')
+Noise level tensor([6.1239, 6.1239, 6.1239, 6.1239], device='cuda:0') -> tensor([4.5340, 4.5340, 4.5340, 4.5340], device='cuda:0')
+Step tensor([450, 450, 450, 450], device='cuda:0') -> tensor([500, 500, 500, 500], device='cuda:0')
+Noise level tensor([4.5340, 4.5340, 4.5340, 4.5340], device='cuda:0') -> tensor([3.4195, 3.4195, 3.4195, 3.4195], device='cuda:0')
+Step tensor([500, 500, 500, 500], device='cuda:0') -> tensor([550, 550, 550, 550], device='cuda:0')
+Noise level tensor([3.4195, 3.4195, 3.4195, 3.4195], device='cuda:0') -> tensor([2.6189, 2.6189, 2.6189, 2.6189], device='cuda:0')
+Step tensor([550, 550, 550, 550], device='cuda:0') -> tensor([600, 600, 600, 600], device='cuda:0')
+Noise level tensor([2.6189, 2.6189, 2.6189, 2.6189], device='cuda:0') -> tensor([2.0288, 2.0288, 2.0288, 2.0288], device='cuda:0')
+Step tensor([600, 600, 600, 600], device='cuda:0') -> tensor([650, 650, 650, 650], device='cuda:0')
+Noise level tensor([2.0288, 2.0288, 2.0288, 2.0288], device='cuda:0') -> tensor([1.5818, 1.5818, 1.5818, 1.5818], device='cuda:0')
+Step tensor([650, 650, 650, 650], device='cuda:0') -> tensor([700, 700, 700, 700], device='cuda:0')
+Noise level tensor([1.5818, 1.5818, 1.5818, 1.5818], device='cuda:0') -> tensor([1.2330, 1.2330, 1.2330, 1.2330], device='cuda:0')
+Step tensor([700, 700, 700, 700], device='cuda:0') -> tensor([750, 750, 750, 750], device='cuda:0')
+Noise level tensor([1.2330, 1.2330, 1.2330, 1.2330], device='cuda:0') -> tensor([0.9523, 0.9523, 0.9523, 0.9523], device='cuda:0')
+Step tensor([750, 750, 750, 750], device='cuda:0') -> tensor([800, 800, 800, 800], device='cuda:0')
+Noise level tensor([0.9523, 0.9523, 0.9523, 0.9523], device='cuda:0') -> tensor([0.7189, 0.7189, 0.7189, 0.7189], device='cuda:0')
+Step tensor([800, 800, 800, 800], device='cuda:0') -> tensor([850, 850, 850, 850], device='cuda:0')
+Noise level tensor([0.7189, 0.7189, 0.7189, 0.7189], device='cuda:0') -> tensor([0.5179, 0.5179, 0.5179, 0.5179], device='cuda:0')
+Step tensor([850, 850, 850, 850], device='cuda:0') -> tensor([900, 900, 900, 900], device='cuda:0')
+Noise level tensor([0.5179, 0.5179, 0.5179, 0.5179], device='cuda:0') -> tensor([0.3387, 0.3387, 0.3387, 0.3387], device='cuda:0')
+Step tensor([900, 900, 900, 900], device='cuda:0') -> tensor([950, 950, 950, 950], device='cuda:0')
+Noise level tensor([0.3387, 0.3387, 0.3387, 0.3387], device='cuda:0') -> tensor([0.1727, 0.1727, 0.1727, 0.1727], device='cuda:0')
+Step tensor([950, 950, 950, 950], device='cuda:0') -> tensor([1000, 1000, 1000, 1000], device='cuda:0')
+Noise level tensor([0.1727, 0.1727, 0.1727, 0.1727], device='cuda:0') -> tensor([0., 0., 0., 0.], device='cuda:0')
+t tensor([785, 581, 562,  43, 954, 422, 216, 627, 802, 163, 553, 107, 662, 230,
+         83, 893], device='cuda:0') tensor([  0.7849,   2.2332,   2.4611, 102.4128,   0.1598,   5.3521,  22.3880,
+          1.7729,   0.7103,  34.5508,   2.5784,  56.3417,   1.4904,  20.0566,
+         70.1528,   0.3628], device='cuda:0')
+r tensor([790, 586, 567,  48, 959, 427, 221, 632, 807, 168, 558, 112, 667, 235,
+         88, 898], device='cuda:0') tensor([ 0.7625,  2.1772,  2.3986, 97.5957,  0.1436,  5.1936, 21.5210,  1.7294,
+         0.6891, 33.1254,  2.5125, 53.8656,  1.4539, 19.2932, 66.9885,  0.3455],
+       device='cuda:0')
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/autograd/graph.py:825: UserWarning: cuDNN SDPA backward got grad_output.strides() != output.strides(), attempting to materialize a grad_output with matching strides... (Triggered internally at /opt/conda/conda-bld/pytorch_1728945388038/work/aten/src/ATen/native/cudnn/MHA.cpp:674.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/autograd/graph.py:825: UserWarning: cuDNN SDPA backward got grad_output.strides() != output.strides(), attempting to materialize a grad_output with matching strides... (Triggered internally at /opt/conda/conda-bld/pytorch_1728945388038/work/aten/src/ATen/native/cudnn/MHA.cpp:674.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+tick 0    	step 1	loss nan  	time 37s         	sec/tick 12.1   	sec/kimg 376.97 	maintenance 25.2  	cpumem 2.23  	gpumem 29.34 	reserved 31.01 
+t tensor([414, 640,  60, 533, 751, 887, 877, 657,  16, 874, 871, 943, 227, 978,
+        422, 636], device='cuda:0') tensor([5.6183e+00, 1.6621e+00, 8.7029e+01, 2.8632e+00, 9.4724e-01, 3.8368e-01,
+        4.1900e-01, 1.5279e+00, 1.3343e+02, 4.2973e-01, 4.4051e-01, 1.9541e-01,
+        2.0532e+01, 8.2592e-02, 5.3521e+00, 1.6954e+00], device='cuda:0')
+r tensor([419, 645,  65, 538, 756, 892, 882, 662,  21, 879, 876, 948, 232, 983,
+        427, 641], device='cuda:0') tensor([5.4501e+00, 1.6215e+00, 8.3007e+01, 2.7887e+00, 9.2214e-01, 3.6625e-01,
+        4.0126e-01, 1.4904e+00, 1.2698e+02, 4.1189e-01, 4.2257e-01, 1.7918e-01,
+        1.9747e+01, 6.6460e-02, 5.1936e+00, 1.6539e+00], device='cuda:0')
+t tensor([328, 654, 712, 487, 845, 876, 683,  53, 696, 223, 476, 658, 922, 286,
+        282, 968], device='cuda:0') tensor([ 9.7962,  1.5507,  1.1603,  3.6738,  0.5369,  0.4226,  1.3427, 93.0288,
+         1.2581, 21.1852,  3.9070,  1.5203,  0.2644, 13.1686, 13.5568,  0.1147],
+       device='cuda:0')
+r tensor([333, 659, 717, 492, 850, 881, 688,  58, 701, 228, 481, 663, 927, 291,
+        287, 973], device='cuda:0') tensor([ 9.4675,  1.5128,  1.1311,  3.5734,  0.5179,  0.4048,  1.3096, 88.6981,
+         1.2268, 20.3718,  3.7989,  1.4831,  0.2479, 12.7018, 13.0737,  0.0987],
+       device='cuda:0')
+t tensor([980, 177, 588, 838,  10, 757, 686, 602, 683, 200, 575, 760, 552, 297,
+        413, 726], device='cuda:0') tensor([7.6150e-02, 3.0726e+01, 2.1553e+00, 5.6381e-01, 1.4165e+02, 9.1718e-01,
+        1.3227e+00, 2.0086e+00, 1.3427e+00, 2.5446e+01, 2.3024e+00, 9.0239e-01,
+        2.5918e+00, 1.2167e+01, 5.6526e+00, 1.0800e+00], device='cuda:0')
+r tensor([985, 182, 593, 843,  15, 762, 691, 607, 688, 205, 580, 765, 557, 302,
+        418, 731], device='cuda:0') tensor([5.9971e-02, 2.9479e+01, 2.1016e+00, 5.4453e-01, 1.3476e+02, 8.9261e-01,
+        1.2900e+00, 1.9589e+00, 1.3096e+00, 2.4442e+01, 2.2445e+00, 8.7808e-01,
+        2.5255e+00, 1.1742e+01, 5.4832e+00, 1.0524e+00], device='cuda:0')
+t tensor([204, 202, 124, 645, 320, 117,  44, 301, 668,  23, 345, 520,  67, 476,
+        945, 923], device='cuda:0') tensor([ 24.6388,  25.0388,  48.4075,   1.6215,  10.3509,  51.5112, 101.4286,
+         11.8257,   1.4467, 124.4936,   8.7312,   3.0684,  81.4564,   3.9070,
+          0.1889,   0.2611], device='cuda:0')
+r tensor([209, 207, 129, 650, 325, 122,  49, 306, 673,  28, 350, 525,  72, 481,
+        950, 928], device='cuda:0') tensor([ 23.6706,  24.0525,  46.3197,   1.5818,   9.9999,  49.2722,  96.6628,
+         11.4146,   1.4112, 118.5178,   8.4448,   2.9875,  77.7194,   3.7989,
+          0.1727,   0.2446], device='cuda:0')
+t tensor([ 20, 781, 799, 500, 572,   5, 432, 320, 253,  87, 234, 904,  48, 712,
+        484, 311], device='cuda:0') tensor([128.2383,   0.8030,   0.7232,   3.4195,   2.3380, 148.9243,   5.0408,
+         10.3509,  16.8117,  67.6084,  19.4431,   0.3250,  97.5957,   1.1603,
+          3.7357,  11.0204], device='cuda:0')
+r tensor([ 25, 786, 804, 505, 577,  10, 437, 325, 258,  92, 239, 909,  53, 717,
+        489, 316], device='cuda:0') tensor([122.0642,   0.7804,   0.7018,   3.3274,   2.2791, 141.6466,   4.8934,
+          9.9999,  16.1900,  64.5719,  18.7067,   0.3080,  93.0288,   1.1311,
+          3.6332,  10.6423], device='cuda:0')
+t tensor([922, 781, 231, 894, 611, 910, 438, 891, 318, 855, 969, 151, 919, 239,
+        948, 298], device='cuda:0') tensor([ 0.2644,  0.8030, 19.9012,  0.3593,  1.9201,  0.3047,  4.8645,  0.3697,
+        10.4954,  0.4992,  0.1115, 38.2662,  0.2744, 18.7067,  0.1792, 12.0808],
+       device='cuda:0')
+r tensor([927, 786, 236, 899, 616, 915, 443, 896, 323, 860, 974, 156, 924, 244,
+        953, 303], device='cuda:0') tensor([ 0.2479,  0.7804, 19.1446,  0.3421,  1.8727,  0.2878,  4.7234,  0.3524,
+        10.1386,  0.4806,  0.0955, 36.6655,  0.2578, 18.0026,  0.1630, 11.6592],
+       device='cuda:0')
+t tensor([730, 754, 618, 725, 939, 755, 915, 626, 856, 281, 700, 452, 834, 424,
+         45, 677], device='cuda:0') tensor([  1.0579,   0.9321,   1.8541,   1.0856,   0.2085,   0.9271,   0.2878,
+          1.7818,   0.4954,  13.6559,   1.2330,   4.4816,   0.5794,   5.2880,
+        100.4550,   1.3834], device='cuda:0')
+r tensor([735, 759, 623, 730, 944, 760, 920, 631, 861, 286, 705, 457, 839, 429,
+         50, 682], device='cuda:0') tensor([ 1.0308,  0.9073,  1.8085,  1.0579,  0.1922,  0.9024,  0.2711,  1.7380,
+         0.4769, 13.1686,  1.2023,  4.3539,  0.5599,  5.1318, 95.7398,  1.3494],
+       device='cuda:0')
+t tensor([310, 482, 482, 656, 936, 746, 811, 657, 142, 792, 239, 663, 583,  55,
+        910, 925], device='cuda:0') tensor([11.0979,  3.7777,  3.7777,  1.5354,  0.2183,  0.9728,  0.6723,  1.5279,
+        41.3518,  0.7537, 18.7067,  1.4831,  2.2106, 91.2690,  0.3047,  0.2545],
+       device='cuda:0')
+r tensor([315, 487, 487, 661, 941, 751, 816, 662, 147, 797, 244, 668, 588,  60,
+        915, 930], device='cuda:0') tensor([10.7166,  3.6738,  3.6738,  1.4979,  0.2019,  0.9472,  0.6516,  1.4904,
+        39.6041,  0.7318, 18.0026,  1.4467,  2.1553, 87.0289,  0.2878,  0.2380],
+       device='cuda:0')
+t tensor([520, 808, 380, 593, 743, 471, 434, 494, 223, 885, 695, 144, 684, 242,
+        444, 548], device='cuda:0') tensor([ 3.0684,  0.6848,  6.9458,  2.1016,  0.9884,  4.0190,  4.9812,  3.5341,
+        21.1852,  0.3907,  1.2644, 40.6424,  1.3360, 18.2805,  4.6957,  2.6463],
+       device='cuda:0')
+r tensor([525, 813, 385, 598, 748, 476, 439, 499, 228, 890, 700, 149, 689, 247,
+        449, 553], device='cuda:0') tensor([ 2.9875,  0.6640,  6.7284,  2.0493,  0.9625,  3.9070,  4.8359,  3.4383,
+        20.3718,  0.3732,  1.2330, 38.9286,  1.3030, 17.5950,  4.5605,  2.5784],
+       device='cuda:0')
+t tensor([748, 238, 571, 871,  89, 690, 286, 332, 270, 673, 723, 927, 310, 186,
+        555, 401], device='cuda:0') tensor([ 0.9625, 18.8514,  2.3500,  0.4405, 66.3750,  1.2965, 13.1686,  9.5322,
+        14.8047,  1.4112,  1.0969,  0.2479, 11.0979, 28.5227,  2.5518,  6.0860],
+       device='cuda:0')
+r tensor([753, 243, 576, 876,  94, 695, 291, 337, 275, 678, 728, 932, 315, 191,
+        560, 406], device='cuda:0') tensor([ 0.9371, 18.1410,  2.2907,  0.4226, 63.4003,  1.2644, 12.7018,  9.2141,
+        14.2689,  1.3766,  1.0689,  0.2314, 10.7166, 27.3773,  2.4866,  5.9007],
+       device='cuda:0')
+tick 1    	step 11	loss 2.63201	time 1m 26s      	sec/tick 48.8   	sec/kimg 152.64 	maintenance 0.0   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([241,  54, 153, 183, 246,  78, 529, 701, 363, 566, 472, 957, 449, 866,
+        278,  42], device='cuda:0') tensor([ 18.4213,  92.1442,  37.6166,  29.2362,  17.7297,  73.4851,   2.9246,
+          1.2268,   7.7516,   2.4110,   3.9963,   0.1501,   4.5605,   0.4586,
+         13.9584, 103.4075], device='cuda:0')
+r tensor([246,  59, 158, 188, 251,  83, 534, 706, 368, 571, 477, 962, 454, 871,
+        283,  47], device='cuda:0') tensor([17.7297, 87.8591, 36.0466, 28.0581, 17.0682, 70.1528,  2.8481,  1.1962,
+         7.5034,  2.3500,  3.8851,  0.1340,  4.4300,  0.4405, 13.4585, 98.5387],
+       device='cuda:0')
+t tensor([729, 492, 180, 434, 785, 108, 567, 416, 965, 615, 607, 529, 824, 592,
+        574,  63], device='cuda:0') tensor([ 1.0634,  3.5734, 29.9703,  4.9812,  0.7849, 55.8364,  2.3986,  5.5502,
+         0.1244,  1.8821,  1.9589,  2.9246,  0.6191,  2.1122,  2.3142, 84.5903],
+       device='cuda:0')
+r tensor([734, 497, 185, 439, 790, 113, 572, 421, 970, 620, 612, 534, 829, 597,
+        579,  68], device='cuda:0') tensor([ 1.0361,  3.4762, 28.7583,  4.8359,  0.7625, 53.3852,  2.3380,  5.3846,
+         0.1083,  1.8358,  1.9105,  2.8481,  0.5991,  2.0597,  2.2560, 80.6932],
+       device='cuda:0')
+t tensor([725, 246, 669,  21,   5, 266, 250, 442, 332, 962, 583, 607, 650, 294,
+         55, 265], device='cuda:0') tensor([1.0856e+00, 1.7730e+01, 1.4396e+00, 1.2698e+02, 1.4892e+02, 1.5250e+01,
+        1.7198e+01, 4.7512e+00, 9.5322e+00, 1.3399e-01, 2.2106e+00, 1.9589e+00,
+        1.5818e+00, 1.2431e+01, 9.1269e+01, 1.5364e+01], device='cuda:0')
+r tensor([730, 251, 674,  26,  10, 271, 255, 447, 337, 967, 588, 612, 655, 299,
+         60, 270], device='cuda:0') tensor([1.0579e+00, 1.7068e+01, 1.4042e+00, 1.2087e+02, 1.4165e+02, 1.4696e+01,
+        1.6560e+01, 4.6140e+00, 9.2141e+00, 1.1793e-01, 2.1553e+00, 1.9105e+00,
+        1.5431e+00, 1.1995e+01, 8.7029e+01, 1.4805e+01], device='cuda:0')
+t tensor([285, 749, 896, 482, 165, 773, 213, 354, 964, 613, 679, 200,  90,  44,
+        318, 790], device='cuda:0') tensor([ 13.2644,   0.9574,   0.3524,   3.7777,  33.9724,   0.8401,  22.9276,
+          8.2239,   0.1276,   1.9010,   1.3697,  25.4464,  65.7678, 101.4286,
+         10.4954,   0.7625], device='cuda:0')
+r tensor([290, 754, 901, 487, 170, 778, 218, 359, 969, 618, 684, 205,  95,  49,
+        323, 795], device='cuda:0') tensor([12.7936,  0.9321,  0.3352,  3.6738, 32.5742,  0.8168, 22.0364,  7.9573,
+         0.1115,  1.8541,  1.3360, 24.4416, 62.8235, 96.6628, 10.1386,  0.7405],
+       device='cuda:0')
+t tensor([627, 786, 435, 791,   5, 875, 695,  27, 658, 754, 871, 266, 842, 452,
+        458, 822], device='cuda:0') tensor([  1.7729,   0.7804,   4.9517,   0.7581, 148.9243,   0.4261,   1.2644,
+        119.6871,   1.5203,   0.9321,   0.4405,  15.2504,   0.5484,   4.4816,
+          4.3288,   0.6271], device='cuda:0')
+r tensor([632, 791, 440, 796,  10, 880, 700,  32, 663, 759, 876, 271, 847, 457,
+        463, 827], device='cuda:0') tensor([  1.7294,   0.7581,   4.8074,   0.7362, 141.6466,   0.4083,   1.2330,
+        113.9652,   1.4831,   0.9073,   0.4226,  14.6957,   0.5293,   4.3539,
+          4.2063,   0.6071], device='cuda:0')
+t tensor([234, 603, 810, 761, 205, 555, 354, 919, 485, 554, 138, 912, 847, 246,
+        457, 713], device='cuda:0') tensor([19.4431,  1.9985,  0.6765,  0.8975, 24.4416,  2.5518,  8.2239,  0.2744,
+         3.7149,  2.5650, 42.8130,  0.2979,  0.5293, 17.7297,  4.3539,  1.1545],
+       device='cuda:0')
+r tensor([239, 608, 815, 766, 210, 560, 359, 924, 490, 559, 143, 917, 852, 251,
+        462, 718], device='cuda:0') tensor([18.7067,  1.9491,  0.6557,  0.8733, 23.4823,  2.4866,  7.9573,  0.2578,
+         3.6131,  2.4995, 40.9954,  0.2811,  0.5104, 17.0682,  4.2305,  1.1254],
+       device='cuda:0')
+t tensor([201, 365, 416, 346, 951, 141, 109, 300, 118, 393, 862, 739,  99, 352,
+        148, 783], device='cuda:0') tensor([25.2417,  7.6511,  5.5502,  8.6730,  0.1695, 41.7117, 55.3362, 11.9100,
+        51.0544,  6.3974,  0.4733,  1.0094, 60.5742,  8.3335, 39.2647,  0.7939],
+       device='cuda:0')
+r tensor([206, 370, 421, 351, 956, 146, 114, 305, 123, 398, 867, 744, 104, 357,
+        153, 788], device='cuda:0') tensor([24.2462,  7.4068,  5.3846,  8.3889,  0.1533, 39.9468, 52.9096, 11.4954,
+        48.8377,  6.2005,  0.4550,  0.9832, 57.8887,  8.0627, 37.6166,  0.7714],
+       device='cuda:0')
+t tensor([855, 521, 459, 909, 980, 100, 439, 131, 144, 337, 711, 775, 935, 115,
+        833,  29], device='cuda:0') tensor([4.9917e-01, 3.0520e+00, 4.3040e+00, 3.0803e-01, 7.6150e-02, 6.0026e+01,
+        4.8359e+00, 4.5513e+01, 4.0642e+01, 9.2141e+00, 1.1663e+00, 8.3072e-01,
+        2.2154e-01, 5.2439e+01, 5.8332e-01, 1.1736e+02], device='cuda:0')
+r tensor([860, 526, 464, 914, 985, 105, 444, 136, 149, 342, 716, 780, 940, 120,
+        838,  34], device='cuda:0') tensor([4.8062e-01, 2.9716e+00, 4.1824e+00, 2.9118e-01, 5.9971e-02, 5.7368e+01,
+        4.6957e+00, 4.3566e+01, 3.8929e+01, 8.9087e+00, 1.1369e+00, 8.0762e-01,
+        2.0519e-01, 5.0154e+01, 5.6381e-01, 1.1176e+02], device='cuda:0')
+t tensor([274, 606, 602, 339,  35, 340, 802, 656,  72, 220, 276, 772, 894, 176,
+        562, 479], device='cuda:0') tensor([ 14.3742,   1.9687,   2.0086,   9.0904, 110.6777,   9.0294,   0.7103,
+          1.5354,  77.7194,  21.6913,  14.1645,   0.8448,   0.3593,  30.9822,
+          2.4611,   3.8417], device='cuda:0')
+r tensor([279, 611, 607, 344,  40, 345, 807, 661,  77, 225, 281, 777, 899, 181,
+        567, 484], device='cuda:0') tensor([ 13.8567,   1.9201,   1.9589,   8.7899, 105.4292,   8.7312,   0.6891,
+          1.4979,  74.1725,  20.8554,  13.6559,   0.8214,   0.3421,  29.7233,
+          2.3986,   3.7357], device='cuda:0')
+t tensor([751, 269, 769, 494, 821, 843,  34, 844, 885, 307, 656, 366, 591, 241,
+        437, 405], device='cuda:0') tensor([  0.9472,  14.9147,   0.8589,   3.5341,   0.6312,   0.5445, 111.7617,
+          0.5407,   0.3907,  11.3344,   1.5354,   7.6015,   2.1229,  18.4213,
+          4.8934,   5.9372], device='cuda:0')
+r tensor([756, 274, 774, 499, 826, 848,  39, 849, 890, 312, 661, 371, 596, 246,
+        442, 410], device='cuda:0') tensor([  0.9221,  14.3742,   0.8354,   3.4383,   0.6111,   0.5255, 106.4564,
+          0.5217,   0.3732,  10.9435,   1.4979,   7.3591,   2.0701,  17.7297,
+          4.7512,   5.7574], device='cuda:0')
+tick 2    	step 21	loss 1.02204	time 2m 15s      	sec/tick 49.3   	sec/kimg 154.04 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([596, 405,  23, 499, 685,  10, 161, 210,  88, 937,  36, 584, 854, 851,
+        443, 903], device='cuda:0') tensor([  2.0701,   5.9372, 124.4936,   3.4383,   1.3293, 141.6466,  35.1405,
+         23.4823,  66.9885,   0.2150, 109.6052,   2.1994,   0.5029,   0.5141,
+          4.7234,   0.3284], device='cuda:0')
+r tensor([601, 410,  28, 504, 690,  15, 166, 215,  93, 942,  41, 589, 859, 856,
+        448, 908], device='cuda:0') tensor([  2.0187,   5.7574, 118.5178,   3.3456,   1.2965, 134.7587,  33.6874,
+         22.5662,  63.9831,   0.1987, 104.4129,   2.1445,   0.4843,   0.4954,
+          4.5872,   0.3114], device='cuda:0')
+t tensor([709, 398, 848, 739, 459, 534, 438, 921, 908, 714,   7, 487, 658, 561,
+        511, 614], device='cuda:0') tensor([  1.1782,   6.2005,   0.5255,   1.0094,   4.3040,   2.8481,   4.8645,
+          0.2678,   0.3114,   1.1486, 145.9650,   3.6738,   1.5203,   2.4738,
+          3.2207,   1.8915], device='cuda:0')
+r tensor([714, 403, 853, 744, 464, 539, 443, 926, 913, 719,  12, 492, 663, 566,
+        516, 619], device='cuda:0') tensor([  1.1486,   6.0110,   0.5066,   0.9832,   4.1824,   2.7740,   4.7234,
+          0.2512,   0.2945,   1.1196, 138.8460,   3.5734,   1.4831,   2.4110,
+          3.1350,   1.8449], device='cuda:0')
+t tensor([608, 318, 369, 548, 849, 795,  15, 832, 306, 941, 922, 515, 246,  79,
+        814, 522], device='cuda:0') tensor([  1.9491,  10.4954,   7.4549,   2.6463,   0.5217,   0.7405, 134.7587,
+          0.5873,  11.4146,   0.2019,   0.2644,   3.1519,  17.7297,  72.8047,
+          0.6598,   3.0357], device='cuda:0')
+r tensor([613, 323, 374, 553, 854, 800,  20, 837, 311, 946, 927, 520, 251,  84,
+        819, 527], device='cuda:0') tensor([  1.9010,  10.1386,   7.2181,   2.5784,   0.5029,   0.7189, 128.2383,
+          0.5677,  11.0204,   0.1857,   0.2479,   3.0684,  17.0682,  69.5068,
+          0.6393,   2.9558], device='cuda:0')
+t tensor([469, 140, 885, 587, 810, 629, 580, 316, 697, 732, 647, 535, 290, 356,
+        642,  45], device='cuda:0') tensor([  4.0649,  42.0752,   0.3907,   2.1663,   0.6765,   1.7554,   2.2445,
+         10.6423,   1.2518,   1.0470,   1.6055,   2.8331,  12.7936,   8.1160,
+          1.6458, 100.4550], device='cuda:0')
+r tensor([474, 145, 890, 592, 815, 634, 585, 321, 702, 737, 652, 540, 295, 361,
+        647,  50], device='cuda:0') tensor([ 3.9514, 40.2929,  0.3732,  2.1122,  0.6557,  1.7124,  2.1883, 10.2795,
+         1.2206,  1.0200,  1.5662,  2.7595, 12.3424,  7.8537,  1.6055, 95.7398],
+       device='cuda:0')
+t tensor([760, 231, 743, 432, 765, 356, 839, 710, 454, 536, 890, 254, 387, 329,
+        601, 471], device='cuda:0') tensor([ 0.9024, 19.9012,  0.9884,  5.0408,  0.8781,  8.1160,  0.5599,  1.1722,
+         4.4300,  2.8182,  0.3732, 16.6852,  6.6437,  9.7294,  2.0187,  4.0190],
+       device='cuda:0')
+r tensor([765, 236, 748, 437, 770, 361, 844, 715, 459, 541, 895, 259, 392, 334,
+        606, 476], device='cuda:0') tensor([ 0.8781, 19.1446,  0.9625,  4.8934,  0.8542,  7.8537,  0.5407,  1.1427,
+         4.3040,  2.7451,  0.3559, 16.0689,  6.4376,  9.4034,  1.9687,  3.9070],
+       device='cuda:0')
+t tensor([852, 789,  52, 738, 668, 292, 713, 637, 268, 839,  37, 629, 176, 854,
+        890, 203], device='cuda:0') tensor([  0.5104,   0.7670,  93.9229,   1.0147,   1.4467,  12.6108,   1.1545,
+          1.6871,  15.0256,   0.5599, 108.5443,   1.7554,  30.9822,   0.5029,
+          0.3732,  24.8379], device='cuda:0')
+r tensor([857, 794,  57, 743, 673, 297, 718, 642, 273, 844,  42, 634, 181, 859,
+        895, 208], device='cuda:0') tensor([  0.4917,   0.7449,  89.5460,   0.9884,   1.4112,  12.1673,   1.1254,
+          1.6458,  14.4805,   0.5407, 103.4075,   1.7124,  29.7233,   0.4843,
+          0.3559,  23.8607], device='cuda:0')
+t tensor([ 93, 773, 391, 225, 730, 505, 218, 173, 973, 872, 776, 311, 631, 835,
+        692, 505], device='cuda:0') tensor([63.9831,  0.8401,  6.4782, 20.8554,  1.0579,  3.3274, 22.0364, 31.7668,
+         0.0987,  0.4369,  0.8261, 11.0204,  1.7380,  0.5755,  1.2836,  3.3274],
+       device='cuda:0')
+r tensor([ 98, 778, 396, 230, 735, 510, 223, 178, 978, 877, 781, 316, 636, 840,
+        697, 510], device='cuda:0') tensor([61.1279,  0.8168,  6.2784, 20.0566,  1.0308,  3.2382, 21.1852, 30.4714,
+         0.0826,  0.4190,  0.8030, 10.6423,  1.6954,  0.5561,  1.2518,  3.2382],
+       device='cuda:0')
+t tensor([ 84, 165, 836, 200, 831, 961, 580, 648,  58, 818, 932, 282, 426, 607,
+         12, 227], device='cuda:0') tensor([6.9507e+01, 3.3972e+01, 5.7158e-01, 2.5446e+01, 5.9120e-01, 1.3721e-01,
+        2.2445e+00, 1.5975e+00, 8.8698e+01, 6.4341e-01, 2.3139e-01, 1.3557e+01,
+        5.2249e+00, 1.9589e+00, 1.3885e+02, 2.0532e+01], device='cuda:0')
+r tensor([ 89, 170, 841, 205, 836, 966, 585, 653,  63, 823, 937, 287, 431, 612,
+         17, 232], device='cuda:0') tensor([6.6375e+01, 3.2574e+01, 5.5221e-01, 2.4442e+01, 5.7158e-01, 1.2114e-01,
+        2.1883e+00, 1.5584e+00, 8.4590e+01, 6.2311e-01, 2.1499e-01, 1.3074e+01,
+        5.0709e+00, 1.9105e+00, 1.3211e+02, 1.9747e+01], device='cuda:0')
+t tensor([832, 624, 930, 772, 755, 611, 270, 675,  96,   2, 849, 593, 373, 628,
+        200, 948], device='cuda:0') tensor([  0.5873,   1.7996,   0.2380,   0.8448,   0.9271,   1.9201,  14.8047,
+          1.3973,  62.2525, 153.4879,   0.5217,   2.1016,   7.2647,   1.7641,
+         25.4464,   0.1792], device='cuda:0')
+r tensor([837, 629, 935, 777, 760, 616, 275, 680, 101,   7, 854, 598, 378, 633,
+        205, 953], device='cuda:0') tensor([  0.5677,   1.7554,   0.2215,   0.8214,   0.9024,   1.8727,  14.2689,
+          1.3629,  59.4836, 145.9650,   0.5029,   2.0493,   7.0352,   1.7209,
+         24.4416,   0.1630], device='cuda:0')
+t tensor([236, 323, 579, 220, 302, 178, 179, 389, 552,  89,  62, 185, 633, 980,
+        427, 832], device='cuda:0') tensor([1.9145e+01, 1.0139e+01, 2.2560e+00, 2.1691e+01, 1.1742e+01, 3.0471e+01,
+        3.0220e+01, 6.5603e+00, 2.5918e+00, 6.6375e+01, 8.5395e+01, 2.8758e+01,
+        1.7209e+00, 7.6150e-02, 5.1936e+00, 5.8726e-01], device='cuda:0')
+r tensor([241, 328, 584, 225, 307, 183, 184, 394, 557,  94,  67, 190, 638, 985,
+        432, 837], device='cuda:0') tensor([1.8421e+01, 9.7962e+00, 2.1994e+00, 2.0855e+01, 1.1334e+01, 2.9236e+01,
+        2.8996e+01, 6.3574e+00, 2.5255e+00, 6.3400e+01, 8.1456e+01, 2.7602e+01,
+        1.6787e+00, 5.9971e-02, 5.0408e+00, 5.6769e-01], device='cuda:0')
+tick 3    	step 31	loss 0.93252	time 3m 05s      	sec/tick 49.5   	sec/kimg 154.74 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([271, 546, 618, 745, 271, 140, 938, 286, 961, 578, 368, 556,  95, 263,
+        394, 600], device='cuda:0') tensor([14.6957,  2.6741,  1.8541,  0.9780, 14.6957, 42.0752,  0.2117, 13.1686,
+         0.1372,  2.2675,  7.5034,  2.5386, 62.8235, 15.5951,  6.3574,  2.0288],
+       device='cuda:0')
+r tensor([276, 551, 623, 750, 276, 145, 943, 291, 966, 583, 373, 561, 100, 268,
+        399, 605], device='cuda:0') tensor([14.1645,  2.6053,  1.8085,  0.9523, 14.1645, 40.2929,  0.1954, 12.7018,
+         0.1211,  2.2106,  7.2647,  2.4738, 60.0261, 15.0256,  6.1620,  1.9786],
+       device='cuda:0')
+t tensor([975, 242, 108, 320,  18, 620, 123, 697, 977, 980, 952, 965, 449, 315,
+        267, 100], device='cuda:0') tensor([9.2239e-02, 1.8281e+01, 5.5836e+01, 1.0351e+01, 1.3080e+02, 1.8358e+00,
+        4.8838e+01, 1.2518e+00, 8.5809e-02, 7.6150e-02, 1.6623e-01, 1.2435e-01,
+        4.5605e+00, 1.0717e+01, 1.5138e+01, 6.0026e+01], device='cuda:0')
+r tensor([980, 247, 113, 325,  23, 625, 128, 702, 982, 985, 957, 970, 454, 320,
+        272, 105], device='cuda:0') tensor([7.6150e-02, 1.7595e+01, 5.3385e+01, 9.9999e+00, 1.2449e+02, 1.7906e+00,
+        4.6729e+01, 1.2206e+00, 6.9694e-02, 5.9971e-02, 1.5009e-01, 1.0829e-01,
+        4.4300e+00, 1.0351e+01, 1.4588e+01, 5.7368e+01], device='cuda:0')
+t tensor([489, 407, 268, 269, 715, 755, 407, 885, 916, 650, 768, 271, 359, 692,
+         33, 971], device='cuda:0') tensor([3.6332e+00, 5.8644e+00, 1.5026e+01, 1.4915e+01, 1.1427e+00, 9.2712e-01,
+        5.8644e+00, 3.9070e-01, 2.8447e-01, 1.5818e+00, 8.6370e-01, 1.4696e+01,
+        7.9573e+00, 1.2836e+00, 1.1286e+02, 1.0508e-01], device='cuda:0')
+r tensor([494, 412, 273, 274, 720, 760, 412, 890, 921, 655, 773, 276, 364, 697,
+         38, 976], device='cuda:0') tensor([3.5341e+00, 5.6873e+00, 1.4480e+01, 1.4374e+01, 1.1139e+00, 9.0239e-01,
+        5.6873e+00, 3.7321e-01, 2.6778e-01, 1.5431e+00, 8.4006e-01, 1.4165e+01,
+        7.7012e+00, 1.2518e+00, 1.0749e+02, 8.9025e-02], device='cuda:0')
+t tensor([387,  20, 307, 906, 468, 562, 604, 143, 447, 238, 850, 509, 329, 271,
+        480, 747], device='cuda:0') tensor([  6.6437, 128.2383,  11.3344,   0.3182,   4.0880,   2.4611,   1.9885,
+         40.9954,   4.6140,  18.8514,   0.5179,   3.2558,   9.7294,  14.6957,
+          3.8202,   0.9676], device='cuda:0')
+r tensor([392,  25, 312, 911, 473, 567, 609, 148, 452, 243, 855, 514, 334, 276,
+        485, 752], device='cuda:0') tensor([  6.4376, 122.0642,  10.9435,   0.3013,   3.9738,   2.3986,   1.9394,
+         39.2647,   4.4816,  18.1410,   0.4992,   3.1690,   9.4034,  14.1645,
+          3.7149,   0.9422], device='cuda:0')
+t tensor([830, 534, 152, 232, 477, 231,  39,  50, 712, 620, 345, 674, 791, 699,
+        913, 188], device='cuda:0') tensor([  0.5952,   2.8481,  37.9398,  19.7471,   3.8851,  19.9012, 106.4564,
+         95.7398,   1.1603,   1.8358,   8.7312,   1.4042,   0.7581,   1.2392,
+          0.2945,  28.0581], device='cuda:0')
+r tensor([835, 539, 157, 237, 482, 236,  44,  55, 717, 625, 350, 679, 796, 704,
+        918, 193], device='cuda:0') tensor([  0.5755,   2.7740,  36.3545,  18.9973,   3.7777,  19.1446, 101.4286,
+         91.2690,   1.1311,   1.7906,   8.4448,   1.3697,   0.7362,   1.2084,
+          0.2778,  26.9341], device='cuda:0')
+t tensor([263, 323, 281, 185,   6, 651, 435,  73, 423, 718, 596,  56, 542, 791,
+        302, 821], device='cuda:0') tensor([ 15.5951,  10.1386,  13.6559,  28.7583, 147.4365,   1.5740,   4.9517,
+         76.9951,   5.3200,   1.1254,   2.0701,  90.4029,   2.7307,   0.7581,
+         11.7421,   0.6312], device='cuda:0')
+r tensor([268, 328, 286, 190,  11, 656, 440,  78, 428, 723, 601,  61, 547, 796,
+        307, 826], device='cuda:0') tensor([ 15.0256,   9.7962,  13.1686,  27.6021, 140.2386,   1.5354,   4.8074,
+         73.4851,   5.1626,   1.0969,   2.0187,  86.2075,   2.6602,   0.7362,
+         11.3344,   0.6111], device='cuda:0')
+t tensor([879, 658, 420, 370, 547, 755, 213, 922, 827,  99, 300, 884, 608, 730,
+        980, 768], device='cuda:0') tensor([ 0.4119,  1.5203,  5.4172,  7.4068,  2.6602,  0.9271, 22.9276,  0.2644,
+         0.6071, 60.5742, 11.9100,  0.3942,  1.9491,  1.0579,  0.0761,  0.8637],
+       device='cuda:0')
+r tensor([884, 663, 425, 375, 552, 760, 218, 927, 832, 104, 305, 889, 613, 735,
+        985, 773], device='cuda:0') tensor([ 0.3942,  1.4831,  5.2563,  7.1718,  2.5918,  0.9024, 22.0364,  0.2479,
+         0.5873, 57.8887, 11.4954,  0.3767,  1.9010,  1.0308,  0.0600,  0.8401],
+       device='cuda:0')
+t tensor([ 79, 545, 447, 498, 699, 209, 432, 773,  72, 557, 150, 956, 762, 696,
+        221, 109], device='cuda:0') tensor([72.8047,  2.6881,  4.6140,  3.4572,  1.2392, 23.6706,  5.0408,  0.8401,
+        77.7194,  2.5255, 38.5958,  0.1533,  0.8926,  1.2581, 21.5210, 55.3362],
+       device='cuda:0')
+r tensor([ 84, 550, 452, 503, 704, 214, 437, 778,  77, 562, 155, 961, 767, 701,
+        226, 114], device='cuda:0') tensor([69.5068,  2.6189,  4.4816,  3.3639,  1.2084, 22.7461,  4.8934,  0.8168,
+        74.1725,  2.4611, 36.9794,  0.1372,  0.8685,  1.2268, 20.6927, 52.9096],
+       device='cuda:0')
+t tensor([258, 708, 416, 255, 424,  75, 881, 870,  99, 530, 101, 666, 246, 263,
+        612, 433], device='cuda:0') tensor([16.1900,  1.1842,  5.5502, 16.5597,  5.2880, 75.5691,  0.4048,  0.4441,
+        60.5742,  2.9091, 59.4836,  1.4612, 17.7297, 15.5951,  1.9105,  5.0109],
+       device='cuda:0')
+r tensor([263, 713, 421, 260, 429,  80, 886, 875, 104, 535, 106, 671, 251, 268,
+        617, 438], device='cuda:0') tensor([15.5951,  1.1545,  5.3846, 15.9489,  5.1318, 72.1314,  0.3872,  0.4261,
+        57.8887,  2.8331, 56.8521,  1.4253, 17.0682, 15.0256,  1.8634,  4.8645],
+       device='cuda:0')
+t tensor([717, 940, 195, 687, 140, 980, 132, 980, 556, 240, 548, 763, 475, 469,
+        284,  80], device='cuda:0') tensor([ 1.1311,  0.2052, 26.4990,  1.3161, 42.0752,  0.0761, 45.1159,  0.0761,
+         2.5386, 18.5634,  2.6463,  0.8878,  3.9291,  4.0649, 13.3610, 72.1314],
+       device='cuda:0')
+r tensor([722, 945, 200, 692, 145, 985, 137, 985, 561, 245, 553, 768, 480, 474,
+        289,  85], device='cuda:0') tensor([1.1025e+00, 1.8891e-01, 2.5446e+01, 1.2836e+00, 4.0293e+01, 5.9971e-02,
+        4.3187e+01, 5.9971e-02, 2.4738e+00, 1.7866e+01, 2.5784e+00, 8.6370e-01,
+        3.8202e+00, 3.9514e+00, 1.2886e+01, 6.8867e+01], device='cuda:0')
+tick 4    	step 41	loss 0.70203	time 3m 55s      	sec/tick 49.9   	sec/kimg 155.80 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([342, 423, 238, 980,  26, 885, 371, 204,  48, 878, 373, 638, 367, 740,
+        452, 977], device='cuda:0') tensor([8.9087e+00, 5.3200e+00, 1.8851e+01, 7.6150e-02, 1.2087e+02, 3.9070e-01,
+        7.3591e+00, 2.4639e+01, 9.7596e+01, 4.1544e-01, 7.2647e+00, 1.6787e+00,
+        7.5522e+00, 1.0041e+00, 4.4816e+00, 8.5809e-02], device='cuda:0')
+r tensor([347, 428, 243, 985,  31, 890, 376, 209,  53, 883, 378, 643, 372, 745,
+        457, 982], device='cuda:0') tensor([8.6153e+00, 5.1626e+00, 1.8141e+01, 5.9971e-02, 1.1508e+02, 3.7321e-01,
+        7.1259e+00, 2.3671e+01, 9.3029e+01, 3.9773e-01, 7.0352e+00, 1.6376e+00,
+        7.3117e+00, 9.7797e-01, 4.3539e+00, 6.9694e-02], device='cuda:0')
+t tensor([676, 860, 684, 978, 980, 838, 546, 893, 289, 974, 387, 813, 355,  40,
+        736, 353], device='cuda:0') tensor([1.3903e+00, 4.8062e-01, 1.3360e+00, 8.2592e-02, 7.6150e-02, 5.6381e-01,
+        2.6741e+00, 3.6279e-01, 1.2886e+01, 9.5451e-02, 6.6437e+00, 6.6398e-01,
+        8.1697e+00, 1.0543e+02, 1.0254e+00, 8.2784e+00], device='cuda:0')
+r tensor([681, 865, 689, 983, 985, 843, 551, 898, 294, 979, 392, 818, 360,  45,
+        741, 358], device='cuda:0') tensor([1.3561e+00, 4.6228e-01, 1.3030e+00, 6.6460e-02, 5.9971e-02, 5.4453e-01,
+        2.6053e+00, 3.4553e-01, 1.2431e+01, 7.9372e-02, 6.4376e+00, 6.4341e-01,
+        7.9053e+00, 1.0046e+02, 9.9884e-01, 8.0098e+00], device='cuda:0')
+t tensor([791, 112, 966, 855, 275, 855, 361, 501, 196, 538,  56, 638, 768, 853,
+         57, 744], device='cuda:0') tensor([ 0.7581, 53.8656,  0.1211,  0.4992, 14.2689,  0.4992,  7.8537,  3.4008,
+        26.2846,  2.7887, 90.4029,  1.6787,  0.8637,  0.5066, 89.5460,  0.9832],
+       device='cuda:0')
+r tensor([796, 117, 971, 860, 280, 860, 366, 506, 201, 543,  61, 643, 773, 858,
+         62, 749], device='cuda:0') tensor([ 0.7362, 51.5112,  0.1051,  0.4806, 13.7559,  0.4806,  7.6015,  3.3093,
+        25.2417,  2.7164, 86.2075,  1.6376,  0.8401,  0.4880, 85.3946,  0.9574],
+       device='cuda:0')
+t tensor([ 70, 233, 496, 844, 118, 337, 160, 141, 804, 571, 716, 618, 144, 889,
+         93, 530], device='cuda:0') tensor([79.1907, 19.5944,  3.4954,  0.5407, 51.0544,  9.2141, 35.4396, 41.7117,
+         0.7018,  2.3500,  1.1369,  1.8541, 40.6424,  0.3767, 63.9831,  2.9091],
+       device='cuda:0')
+r tensor([ 75, 238, 501, 849, 123, 342, 165, 146, 809, 576, 721, 623, 149, 894,
+         98, 535], device='cuda:0') tensor([75.5691, 18.8514,  3.4008,  0.5217, 48.8377,  8.9087, 33.9724, 39.9468,
+         0.6806,  2.2907,  1.1082,  1.8085, 38.9286,  0.3593, 61.1279,  2.8331],
+       device='cuda:0')
+t tensor([832, 904, 225, 429, 727, 753, 680, 263, 415, 968, 675, 508, 445, 563,
+        863, 531], device='cuda:0') tensor([ 0.5873,  0.3250, 20.8554,  5.1318,  1.0745,  0.9371,  1.3629, 15.5951,
+         5.5841,  0.1147,  1.3973,  3.2735,  4.6683,  2.4485,  0.4696,  2.8937],
+       device='cuda:0')
+r tensor([837, 909, 230, 434, 732, 758, 685, 268, 420, 973, 680, 513, 450, 568,
+        868, 536], device='cuda:0') tensor([ 0.5677,  0.3080, 20.0566,  4.9812,  1.0470,  0.9122,  1.3293, 15.0256,
+         5.4172,  0.0987,  1.3629,  3.1861,  4.5340,  2.3864,  0.4514,  2.8182],
+       device='cuda:0')
+t tensor([307, 919, 587, 593, 666, 468, 977, 408,  50, 620, 699, 542, 289, 671,
+        595, 517], device='cuda:0') tensor([1.1334e+01, 2.7444e-01, 2.1663e+00, 2.1016e+00, 1.4612e+00, 4.0880e+00,
+        8.5809e-02, 5.8285e+00, 9.5740e+01, 1.8358e+00, 1.2392e+00, 2.7307e+00,
+        1.2886e+01, 1.4253e+00, 2.0805e+00, 3.1182e+00], device='cuda:0')
+r tensor([312, 924, 592, 598, 671, 473, 982, 413,  55, 625, 704, 547, 294, 676,
+        600, 522], device='cuda:0') tensor([1.0943e+01, 2.5781e-01, 2.1122e+00, 2.0493e+00, 1.4253e+00, 3.9738e+00,
+        6.9694e-02, 5.6526e+00, 9.1269e+01, 1.7906e+00, 1.2084e+00, 2.6602e+00,
+        1.2431e+01, 1.3903e+00, 2.0288e+00, 3.0357e+00], device='cuda:0')
+t tensor([777, 102, 338, 657,  25, 628, 393, 919, 872, 336, 647, 194, 343, 137,
+        863,  82], device='cuda:0') tensor([  0.8214,  58.9465,   9.1520,   1.5279, 122.0642,   1.7641,   6.3974,
+          0.2744,   0.4369,   9.2767,   1.6055,  26.7155,   8.8490,  43.1874,
+          0.4696,  70.8055], device='cuda:0')
+r tensor([782, 107, 343, 662,  30, 633, 398, 924, 877, 341, 652, 199, 348, 142,
+        868,  87], device='cuda:0') tensor([  0.7985,  56.3417,   8.8490,   1.4904, 116.2169,   1.7209,   6.2005,
+          0.2578,   0.4190,   8.9688,   1.5662,  25.6530,   8.5580,  41.3518,
+          0.4514,  67.6084], device='cuda:0')
+t tensor([ 44, 901, 379, 875, 931, 195, 598, 126, 978, 979,  20, 912, 628, 830,
+        758, 604], device='cuda:0') tensor([1.0143e+02, 3.3524e-01, 6.9903e+00, 4.2614e-01, 2.3468e-01, 2.6499e+01,
+        2.0493e+00, 4.7560e+01, 8.2592e-02, 7.9372e-02, 1.2824e+02, 2.9791e-01,
+        1.7641e+00, 5.9515e-01, 9.1223e-01, 1.9885e+00], device='cuda:0')
+r tensor([ 49, 906, 384, 880, 936, 200, 603, 131, 983, 984,  25, 917, 633, 835,
+        763, 609], device='cuda:0') tensor([9.6663e+01, 3.1820e-01, 6.7712e+00, 4.0834e-01, 2.1827e-01, 2.5446e+01,
+        1.9985e+00, 4.5513e+01, 6.6460e-02, 6.3219e-02, 1.2206e+02, 2.8113e-01,
+        1.7209e+00, 5.7549e-01, 8.8775e-01, 1.9394e+00], device='cuda:0')
+t tensor([587,  70, 797, 172, 742, 610, 571, 919, 266, 116, 356, 855, 684, 538,
+        921, 468], device='cuda:0') tensor([ 2.1663, 79.1907,  0.7318, 32.0333,  0.9936,  1.9297,  2.3500,  0.2744,
+        15.2504, 51.9727,  8.1160,  0.4992,  1.3360,  2.7887,  0.2678,  4.0880],
+       device='cuda:0')
+r tensor([592,  75, 802, 177, 747, 615, 576, 924, 271, 121, 361, 860, 689, 543,
+        926, 473], device='cuda:0') tensor([ 2.1122, 75.5691,  0.7103, 30.7256,  0.9676,  1.8821,  2.2907,  0.2578,
+        14.6957, 49.7111,  7.8537,  0.4806,  1.3030,  2.7164,  0.2512,  3.9738],
+       device='cuda:0')
+t tensor([295, 261, 242, 967, 312,  30,  55, 468, 628, 969, 936, 915, 158, 980,
+         90, 722], device='cuda:0') tensor([1.2342e+01, 1.5830e+01, 1.8281e+01, 1.1793e-01, 1.0943e+01, 1.1622e+02,
+        9.1269e+01, 4.0880e+00, 1.7641e+00, 1.1151e-01, 2.1827e-01, 2.8783e-01,
+        3.6047e+01, 7.6150e-02, 6.5768e+01, 1.1025e+00], device='cuda:0')
+r tensor([300, 266, 247, 972, 317,  35,  60, 473, 633, 974, 941, 920, 163, 985,
+         95, 727], device='cuda:0') tensor([1.1910e+01, 1.5250e+01, 1.7595e+01, 1.0187e-01, 1.0569e+01, 1.1068e+02,
+        8.7029e+01, 3.9738e+00, 1.7209e+00, 9.5451e-02, 2.0193e-01, 2.7111e-01,
+        3.4551e+01, 5.9971e-02, 6.2823e+01, 1.0745e+00], device='cuda:0')
+tick 5    	step 51	loss 0.91067	time 4m 45s      	sec/tick 49.8   	sec/kimg 155.62 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([212,  13,   4, 980, 603, 771, 340, 900, 284, 264, 211, 214, 817, 882,
+        114, 502], device='cuda:0') tensor([2.3111e+01, 1.3747e+02, 1.5043e+02, 7.6150e-02, 1.9985e+00, 8.4947e-01,
+        9.0294e+00, 3.3867e-01, 1.3361e+01, 1.5479e+01, 2.3296e+01, 2.2746e+01,
+        6.4750e-01, 4.0126e-01, 5.2910e+01, 3.3823e+00], device='cuda:0')
+r tensor([217,  18,   9, 985, 608, 776, 345, 905, 289, 269, 216, 219, 822, 887,
+        119, 507], device='cuda:0') tensor([2.2211e+01, 1.3080e+02, 1.4307e+02, 5.9971e-02, 1.9491e+00, 8.2607e-01,
+        8.7312e+00, 3.2160e-01, 1.2886e+01, 1.4915e+01, 2.2388e+01, 2.1863e+01,
+        6.2715e-01, 3.8368e-01, 5.0602e+01, 3.2914e+00], device='cuda:0')
+t tensor([759, 331, 289, 167, 149, 220, 315, 622, 236, 930, 202,  80, 136, 735,
+        914,  15], device='cuda:0') tensor([  0.9073,   9.5974,  12.8862,  33.4051,  38.9286,  21.6913,  10.7166,
+          1.8176,  19.1446,   0.2380,  25.0388,  72.1314,  43.5655,   1.0308,
+          0.2912, 134.7587], device='cuda:0')
+r tensor([764, 336, 294, 172, 154, 225, 320, 627, 241, 935, 207,  85, 141, 740,
+        919,  20], device='cuda:0') tensor([  0.8829,   9.2767,  12.4311,  32.0333,  37.2964,  20.8554,  10.3509,
+          1.7729,  18.4213,   0.2215,  24.0525,  68.8674,  41.7117,   1.0041,
+          0.2744, 128.2383], device='cuda:0')
+t tensor([951, 697, 720, 573, 358,  60, 264, 234, 553, 171, 845, 733, 156, 205,
+        584, 890], device='cuda:0') tensor([ 0.1695,  1.2518,  1.1139,  2.3261,  8.0098, 87.0289, 15.4792, 19.4431,
+         2.5784, 32.3024,  0.5369,  1.0416, 36.6655, 24.4416,  2.1994,  0.3732],
+       device='cuda:0')
+r tensor([956, 702, 725, 578, 363,  65, 269, 239, 558, 176, 850, 738, 161, 210,
+        589, 895], device='cuda:0') tensor([ 0.1533,  1.2206,  1.0856,  2.2675,  7.7516, 83.0069, 14.9147, 18.7067,
+         2.5125, 30.9822,  0.5179,  1.0147, 35.1405, 23.4823,  2.1445,  0.3559],
+       device='cuda:0')
+t tensor([927, 459, 784, 328, 310, 760, 797, 544, 365, 364, 731,  70, 560, 347,
+        936, 259], device='cuda:0') tensor([ 0.2479,  4.3040,  0.7894,  9.7962, 11.0979,  0.9024,  0.7318,  2.7022,
+         7.6511,  7.7012,  1.0524, 79.1907,  2.4866,  8.6153,  0.2183, 16.0689],
+       device='cuda:0')
+r tensor([932, 464, 789, 333, 315, 765, 802, 549, 370, 369, 736,  75, 565, 352,
+        941, 264], device='cuda:0') tensor([ 0.2314,  4.1824,  0.7670,  9.4675, 10.7166,  0.8781,  0.7103,  2.6326,
+         7.4068,  7.4549,  1.0254, 75.5691,  2.4234,  8.3335,  0.2019, 15.4792],
+       device='cuda:0')
+t tensor([521, 935, 736, 627, 638, 712, 811, 891, 328, 304, 494, 660, 780, 371,
+        570, 280], device='cuda:0') tensor([ 3.0520,  0.2215,  1.0254,  1.7729,  1.6787,  1.1603,  0.6723,  0.3697,
+         9.7962, 11.5769,  3.5341,  1.5053,  0.8076,  7.3591,  2.3620, 13.7559],
+       device='cuda:0')
+r tensor([526, 940, 741, 632, 643, 717, 816, 896, 333, 309, 499, 665, 785, 376,
+        575, 285], device='cuda:0') tensor([ 2.9716,  0.2052,  0.9988,  1.7294,  1.6376,  1.1311,  0.6516,  0.3524,
+         9.4675, 11.1761,  3.4383,  1.4684,  0.7849,  7.1259,  2.3024, 13.2644],
+       device='cuda:0')
+t tensor([800, 694, 758, 167, 652, 925, 204, 456, 500, 794,  37, 566, 971, 360,
+        964, 634], device='cuda:0') tensor([7.1886e-01, 1.2708e+00, 9.1223e-01, 3.3405e+01, 1.5662e+00, 2.5449e-01,
+        2.4639e+01, 4.3791e+00, 3.4195e+00, 7.4491e-01, 1.0854e+02, 2.4110e+00,
+        1.0508e-01, 7.9053e+00, 1.2756e-01, 1.7124e+00], device='cuda:0')
+r tensor([805, 699, 763, 172, 657, 930, 209, 461, 505, 799,  42, 571, 976, 365,
+        969, 639], device='cuda:0') tensor([6.9751e-01, 1.2392e+00, 8.8775e-01, 3.2033e+01, 1.5279e+00, 2.3797e-01,
+        2.3671e+01, 4.2548e+00, 3.3274e+00, 7.2317e-01, 1.0341e+02, 2.3500e+00,
+        8.9025e-02, 7.6511e+00, 1.1151e-01, 1.6704e+00], device='cuda:0')
+t tensor([127, 507, 828,   9, 366, 839, 580, 440, 678, 916, 330, 839, 771, 933,
+         16, 565], device='cuda:0') tensor([ 47.1423,   3.2914,   0.6031, 143.0702,   7.6015,   0.5599,   2.2445,
+          4.8074,   1.3766,   0.2845,   9.6631,   0.5599,   0.8495,   0.2281,
+        133.4259,   2.4234], device='cuda:0')
+r tensor([132, 512, 833,  14, 371, 844, 585, 445, 683, 921, 335, 844, 776, 938,
+         21, 570], device='cuda:0') tensor([ 45.1159,   3.2034,   0.5833, 136.1062,   7.3591,   0.5407,   2.1883,
+          4.6683,   1.3427,   0.2678,   9.3398,   0.5407,   0.8261,   0.2117,
+        126.9764,   2.3620], device='cuda:0')
+t tensor([735, 935, 142, 580, 413, 598, 339, 588, 645, 748,  83, 159, 110, 836,
+        809, 778], device='cuda:0') tensor([ 1.0308,  0.2215, 41.3518,  2.2445,  5.6526,  2.0493,  9.0904,  2.1553,
+         1.6215,  0.9625, 70.1528, 35.7417, 54.8410,  0.5716,  0.6806,  0.8168],
+       device='cuda:0')
+r tensor([740, 940, 147, 585, 418, 603, 344, 593, 650, 753,  88, 164, 115, 841,
+        814, 783], device='cuda:0') tensor([ 1.0041,  0.2052, 39.6041,  2.1883,  5.4832,  1.9985,  8.7899,  2.1016,
+         1.5818,  0.9371, 66.9885, 34.2603, 52.4388,  0.5522,  0.6598,  0.7939],
+       device='cuda:0')
+t tensor([350, 281, 960, 423, 245, 482, 330, 308, 380,  99,  25, 398, 437, 827,
+        517,  99], device='cuda:0') tensor([  8.4448,  13.6559,   0.1404,   5.3200,  17.8656,   3.7777,   9.6631,
+         11.2549,   6.9458,  60.5742, 122.0642,   6.2005,   4.8934,   0.6071,
+          3.1182,  60.5742], device='cuda:0')
+r tensor([355, 286, 965, 428, 250, 487, 335, 313, 385, 104,  30, 403, 442, 832,
+        522, 104], device='cuda:0') tensor([  8.1697,  13.1686,   0.1244,   5.1626,  17.1982,   3.6738,   9.3398,
+         10.8672,   6.7284,  57.8887, 116.2169,   6.0110,   4.7512,   0.5873,
+          3.0357,  57.8887], device='cuda:0')
+t tensor([725, 171, 949, 548, 835, 646, 252, 437, 241,  56, 635, 656, 927, 164,
+        980, 844], device='cuda:0') tensor([1.0856e+00, 3.2302e+01, 1.7594e-01, 2.6463e+00, 5.7549e-01, 1.6134e+00,
+        1.6939e+01, 4.8934e+00, 1.8421e+01, 9.0403e+01, 1.7039e+00, 1.5354e+00,
+        2.4787e-01, 3.4260e+01, 7.6150e-02, 5.4070e-01], device='cuda:0')
+r tensor([730, 176, 954, 553, 840, 651, 257, 442, 246,  61, 640, 661, 932, 169,
+        985, 849], device='cuda:0') tensor([1.0579e+00, 3.0982e+01, 1.5977e-01, 2.5784e+00, 5.5607e-01, 1.5740e+00,
+        1.6312e+01, 4.7512e+00, 1.7730e+01, 8.6207e+01, 1.6621e+00, 1.4979e+00,
+        2.3139e-01, 3.2848e+01, 5.9971e-02, 5.2169e-01], device='cuda:0')
+tick 6    	step 61	loss 0.99943	time 5m 35s      	sec/tick 49.9   	sec/kimg 155.92 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+t tensor([512, 104, 263, 615, 402, 254, 231, 548, 959, 823, 665,  14, 527, 851,
+        714, 437], device='cuda:0') tensor([  3.2034,  57.8887,  15.5951,   1.8821,   6.0483,  16.6852,  19.9012,
+          2.6463,   0.1436,   0.6231,   1.4684, 136.1062,   2.9558,   0.5141,
+          1.1486,   4.8934], device='cuda:0')
+r tensor([517, 109, 268, 620, 407, 259, 236, 553, 964, 828, 670,  19, 532, 856,
+        719, 442], device='cuda:0') tensor([3.1182e+00, 5.5336e+01, 1.5026e+01, 1.8358e+00, 5.8644e+00, 1.6069e+01,
+        1.9145e+01, 2.5784e+00, 1.2756e-01, 6.0309e-01, 1.4324e+00, 1.2951e+02,
+        2.8784e+00, 4.9544e-01, 1.1196e+00, 4.7512e+00], device='cuda:0')
+t tensor([338, 496, 387, 595, 858, 783, 372, 570, 960, 980, 793, 928, 729, 733,
+        679, 734], device='cuda:0') tensor([9.1520, 3.4954, 6.6437, 2.0805, 0.4880, 0.7939, 7.3117, 2.3620, 0.1404,
+        0.0761, 0.7493, 0.2446, 1.0634, 1.0416, 1.3697, 1.0361],
+       device='cuda:0')
+r tensor([343, 501, 392, 600, 863, 788, 377, 575, 965, 985, 798, 933, 734, 738,
+        684, 739], device='cuda:0') tensor([8.8490, 3.4008, 6.4376, 2.0288, 0.4696, 0.7714, 7.0804, 2.3024, 0.1244,
+        0.0600, 0.7275, 0.2281, 1.0361, 1.0147, 1.3360, 1.0094],
+       device='cuda:0')
+t tensor([291, 423, 701, 971, 350, 467, 638, 645, 603, 110, 373, 607, 304, 203,
+        253, 767], device='cuda:0') tensor([12.7018,  5.3200,  1.2268,  0.1051,  8.4448,  4.1114,  1.6787,  1.6215,
+         1.9985, 54.8410,  7.2647,  1.9589, 11.5769, 24.8379, 16.8117,  0.8685],
+       device='cuda:0')
+r tensor([296, 428, 706, 976, 355, 472, 643, 650, 608, 115, 378, 612, 309, 208,
+        258, 772], device='cuda:0') tensor([12.2545,  5.1626,  1.1962,  0.0890,  8.1697,  3.9963,  1.6376,  1.5818,
+         1.9491, 52.4388,  7.0352,  1.9105, 11.1761, 23.8607, 16.1900,  0.8448],
+       device='cuda:0')
+t tensor([452, 795, 735, 338, 408, 719, 895, 194, 644, 650,  45, 267,   0, 549,
+        980, 772], device='cuda:0') tensor([4.4816e+00, 7.4054e-01, 1.0308e+00, 9.1520e+00, 5.8285e+00, 1.1196e+00,
+        3.5587e-01, 2.6716e+01, 1.6295e+00, 1.5818e+00, 1.0046e+02, 1.5138e+01,
+        1.5662e+02, 2.6326e+00, 7.6150e-02, 8.4476e-01], device='cuda:0')
+r tensor([457, 800, 740, 343, 413, 724, 900, 199, 649, 655,  50, 272,   5, 554,
+        985, 777], device='cuda:0') tensor([4.3539e+00, 7.1886e-01, 1.0041e+00, 8.8490e+00, 5.6526e+00, 1.0912e+00,
+        3.3867e-01, 2.5653e+01, 1.5896e+00, 1.5431e+00, 9.5740e+01, 1.4588e+01,
+        1.4892e+02, 2.5650e+00, 5.9971e-02, 8.2143e-01], device='cuda:0')
+t tensor([ 89,  75, 933, 105,  21, 400, 171, 521, 967, 980, 624, 937, 662, 101,
+        948, 517], device='cuda:0') tensor([6.6375e+01, 7.5569e+01, 2.2810e-01, 5.7368e+01, 1.2698e+02, 6.1239e+00,
+        3.2302e+01, 3.0520e+00, 1.1793e-01, 7.6150e-02, 1.7996e+00, 2.1499e-01,
+        1.4904e+00, 5.9484e+01, 1.7918e-01, 3.1182e+00], device='cuda:0')
+r tensor([ 94,  80, 938, 110,  26, 405, 176, 526, 972, 985, 629, 942, 667, 106,
+        953, 522], device='cuda:0') tensor([6.3400e+01, 7.2131e+01, 2.1172e-01, 5.4841e+01, 1.2087e+02, 5.9372e+00,
+        3.0982e+01, 2.9716e+00, 1.0187e-01, 5.9971e-02, 1.7554e+00, 1.9867e-01,
+        1.4539e+00, 5.6852e+01, 1.6300e-01, 3.0357e+00], device='cuda:0')
+t tensor([494, 517, 821, 214,  64, 738, 416, 911,  93,  51, 664, 187, 156, 711,
+        434, 398], device='cuda:0') tensor([ 3.5341,  3.1182,  0.6312, 22.7461, 83.7944,  1.0147,  5.5502,  0.3013,
+        63.9831, 94.8265,  1.4757, 28.2893, 36.6655,  1.1663,  4.9812,  6.2005],
+       device='cuda:0')
+r tensor([499, 522, 826, 219,  69, 743, 421, 916,  98,  56, 669, 192, 161, 716,
+        439, 403], device='cuda:0') tensor([ 3.4383,  3.0357,  0.6111, 21.8631, 79.9380,  0.9884,  5.3846,  0.2845,
+        61.1279, 90.4029,  1.4396, 27.1547, 35.1405,  1.1369,  4.8359,  6.0110],
+       device='cuda:0')
+t tensor([ 75, 481, 640, 882, 535,  59, 900, 140, 474, 649, 297, 980, 209,  48,
+        980, 833], device='cuda:0') tensor([7.5569e+01, 3.7989e+00, 1.6621e+00, 4.0126e-01, 2.8331e+00, 8.7859e+01,
+        3.3867e-01, 4.2075e+01, 3.9514e+00, 1.5896e+00, 1.2167e+01, 7.6150e-02,
+        2.3671e+01, 9.7596e+01, 7.6150e-02, 5.8332e-01], device='cuda:0')
+r tensor([ 80, 486, 645, 887, 540,  64, 905, 145, 479, 654, 302, 985, 214,  53,
+        985, 838], device='cuda:0') tensor([7.2131e+01, 3.6943e+00, 1.6215e+00, 3.8368e-01, 2.7595e+00, 8.3794e+01,
+        3.2160e-01, 4.0293e+01, 3.8417e+00, 1.5507e+00, 1.1742e+01, 5.9971e-02,
+        2.2746e+01, 9.3029e+01, 5.9971e-02, 5.6381e-01], device='cuda:0')
+t tensor([ 49, 643, 921, 387,  60, 724, 712, 330, 105, 635, 233, 520, 702, 598,
+        282, 913], device='cuda:0') tensor([96.6628,  1.6376,  0.2678,  6.6437, 87.0289,  1.0912,  1.1603,  9.6631,
+        57.3678,  1.7039, 19.5944,  3.0684,  1.2206,  2.0493, 13.5568,  0.2945],
+       device='cuda:0')
+r tensor([ 54, 648, 926, 392,  65, 729, 717, 335, 110, 640, 238, 525, 707, 603,
+        287, 918], device='cuda:0') tensor([92.1442,  1.5975,  0.2512,  6.4376, 83.0069,  1.0634,  1.1311,  9.3398,
+        54.8410,  1.6621, 18.8514,  2.9875,  1.1902,  1.9985, 13.0737,  0.2778],
+       device='cuda:0')
+t tensor([355, 496, 342, 312, 741, 795, 655, 184, 165, 965, 815, 612, 848, 453,
+        399, 387], device='cuda:0') tensor([ 8.1697,  3.4954,  8.9087, 10.9435,  0.9988,  0.7405,  1.5431, 28.9961,
+        33.9724,  0.1244,  0.6557,  1.9105,  0.5255,  4.4557,  6.1620,  6.6437],
+       device='cuda:0')
+r tensor([360, 501, 347, 317, 746, 800, 660, 189, 170, 970, 820, 617, 853, 458,
+        404, 392], device='cuda:0') tensor([ 7.9053,  3.4008,  8.6153, 10.5685,  0.9728,  0.7189,  1.5053, 27.8290,
+        32.5742,  0.1083,  0.6353,  1.8634,  0.5066,  4.3288,  5.9739,  6.4376],
+       device='cuda:0')
+t tensor([774, 169, 619, 219, 309, 634, 663, 313, 720, 580, 282, 662, 347, 803,
+        405, 965], device='cuda:0') tensor([ 0.8354, 32.8485,  1.8449, 21.8631, 11.1761,  1.7124,  1.4831, 10.8672,
+         1.1139,  2.2445, 13.5568,  1.4904,  8.6153,  0.7060,  5.9372,  0.1244],
+       device='cuda:0')
+r tensor([779, 174, 624, 224, 314, 639, 668, 318, 725, 585, 287, 667, 352, 808,
+        410, 970], device='cuda:0') tensor([ 0.8122, 31.5027,  1.7996, 21.0195, 10.7916,  1.6704,  1.4467, 10.4954,
+         1.0856,  2.1883, 13.0737,  1.4539,  8.3335,  0.6848,  5.7574,  0.1083],
+       device='cuda:0')
+tick 7    	step 71	loss 0.82515	time 6m 25s      	sec/tick 49.8   	sec/kimg 155.66 	maintenance 0.1   	cpumem 2.24  	gpumem 32.95 	reserved 36.23 
+
+Exiting...
+[rank0]:[W1207 04:55:26.115614791 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+W1207 05:03:24.372000 2798839 site-packages/torch/distributed/run.py:793] 
+W1207 05:03:24.372000 2798839 site-packages/torch/distributed/run.py:793] *****************************************
+W1207 05:03:24.372000 2798839 site-packages/torch/distributed/run.py:793] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1207 05:03:24.372000 2798839 site-packages/torch/distributed/run.py:793] *****************************************
+Distributed initialized.
+current rank: 0/2
+
+Training options:
+{
+  "network_kwargs": {
+    "class_name": "networks.pixart_alpha.PixArt_alpha_DDIM",
+    "img_channels": 4,
+    "C_1": 0.001,
+    "C_2": 0.008,
+    "M": 1000,
+    "beta_start": 0.0001,
+    "beta_end": 0.02,
+    "pretrained": true,
+    "load_encoders": false,
+    "load_vae": true,
+    "input_size": 64,
+    "ckpt_path": "/usr3/hcontant/pixart-project-recent/ckpts/pixart/pixart-512/PixArt-XL-2-512x512.pth",
+    "text_encoder_ckpt_path": "/usr3/hcontant/pixart-project-recent/ckpts/t5"
+  },
+  "reward_kwargs": {
+    "class_name": "ImageReward.ImageReward.ImageReward",
+    "rm_ckpt_path": "/data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/ImageReward.pt",
+    "med_config": "/data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/med_config.json"
+  },
+  "dataset_kwargs": {
+    "class_name": "dataloader.prompt.PromptDataset",
+    "file_path": "/usr3/hcontant/Datasets/Filtered/HPDv2.jsonl"
+  },
+  "eval_dataset_kwargs": {
+    "class_name": "dataloader.prompt.PromptDataset",
+    "file_path": "/usr3/hcontant/Datasets/Filtered/SPO.jsonl"
+  },
+  "data_loader_kwargs": {
+    "batch_size": 16,
+    "num_workers": 8,
+    "prefetch_factor": 4,
+    "pin_memory": true
+  },
+  "loss_kwargs": {
+    "class_name": "losses.cm_align.ECALoss",
+    "offset_dfun": "phuber",
+    "phuber_c": 0.03,
+    "sigma_init": 156.6155,
+    "sigma_dist": "uniform",
+    "P_mean": 0.0,
+    "P_std": 3.0,
+    "rewrad_loss_scale": 1.0,
+    "cfg_scale": 4.5,
+    "loss_type": "eca"
+  },
+  "optimizer_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "lr": 5e-06,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-11
+  },
+  "ema_kwargs": {
+    "class_name": "training.utils.ema.SimpleEMA",
+    "decay": 0.9
+  },
+  "run_dir": "/usr3/hcontant/pixart-project-recent/outputs-SPO/00000-gpus2-batch16-bf16-PixArt-alpha-bs16x32-fp16-textenc-uniform-skip5-5step-stu-data-2step-lr5e-6-wt=snr-sample-2step-t=4.0",
+  "loss_scaling": 1.0,
+  "total_steps": 20000,
+  "grad_accumulation": 1,
+  "seed": 112,
+  "use_rlhf": false,
+  "step_per_tick": 10,
+  "image_tick": 10,
+  "snapshot_ticks": 50,
+  "state_dump_ticks": 50,
+  "use_fsdp": false,
+  "precision": "bf16",
+  "batch_size": 16
+}
+
+Output directory:        /usr3/hcontant/pixart-project-recent/outputs-SPO/00000-gpus2-batch16-bf16-PixArt-alpha-bs16x32-fp16-textenc-uniform-skip5-5step-stu-data-2step-lr5e-6-wt=snr-sample-2step-t=4.0
+Number of GPUs:          2
+Batch size:              16
+Precision:               bf16
+
+Creating output directory...
+Loading dataset...
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/utils/data/sampler.py:76: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn(
+Dataset length: 3400
+Loading text encoder...
+current rank: 1/2
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/utils/data/sampler.py:76: UserWarning: `data_source` argument is not used and will be removed in 2.2.0.You may still have custom implementation that utilizes it.
+  warnings.warn(
+Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:  11%|#1        | 1/9 [00:01<00:14,  1.84s/it]Loading checkpoint shards:  11%|█         | 1/9 [00:01<00:13,  1.70s/it]Loading checkpoint shards:  22%|██▏       | 2/9 [00:03<00:11,  1.57s/it]Loading checkpoint shards:  22%|##2       | 2/9 [00:03<00:11,  1.68s/it]Loading checkpoint shards:  33%|███▎      | 3/9 [00:04<00:09,  1.56s/it]Loading checkpoint shards:  33%|###3      | 3/9 [00:04<00:09,  1.64s/it]Loading checkpoint shards:  44%|████▍     | 4/9 [00:05<00:07,  1.42s/it]Loading checkpoint shards:  44%|####4     | 4/9 [00:06<00:07,  1.48s/it]Loading checkpoint shards:  67%|██████▋   | 6/9 [00:06<00:02,  1.41it/s]Loading checkpoint shards:  56%|#####5    | 5/9 [00:06<00:03,  1.01it/s]Loading checkpoint shards:  89%|████████▉ | 8/9 [00:06<00:00,  2.29it/s]Loading checkpoint shards:  67%|######6   | 6/9 [00:06<00:02,  1.45it/s]Loading checkpoint shards: 100%|██████████| 9/9 [00:06<00:00,  1.42it/s]
+Loading checkpoint shards:  78%|#######7  | 7/9 [00:06<00:01,  1.99it/s]Loading checkpoint shards:  89%|########8 | 8/9 [00:06<00:00,  2.63it/s]Loading checkpoint shards: 100%|##########| 9/9 [00:06<00:00,  3.36it/s]Loading checkpoint shards: 100%|##########| 9/9 [00:06<00:00,  1.32it/s]
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Constructing network...
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Loading pretrained model...
+/usr3/hcontant/pixart-project-recent/networks/pixart_alpha/__init__.py:54: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path)
+Loading pretrained model...
+/usr3/hcontant/pixart-project-recent/networks/pixart_alpha/__init__.py:54: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path)
+Loading VAE...
+type: <class 'networks.pixart_alpha.PixArt_alpha_DDIM'>
+Setting up DDP...
+Setting up optimizer...
+Training for 20000 steps...
+
+/usr3/hcontant/pixart-project-recent/training/training_loop.py:301: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  valid_text_embs, valid_masks = torch.load("./metrics/parti20.pt", map_location='cpu')
+Step tensor([0, 0, 0, 0], device='cuda:0') -> tensor([50, 50, 50, 50], device='cuda:0')
+Noise level tensor([156.6157, 156.6157, 156.6157, 156.6157], device='cuda:0') -> tensor([95.7398, 95.7398, 95.7398, 95.7398], device='cuda:0')
+Step tensor([50, 50, 50, 50], device='cuda:0') -> tensor([100, 100, 100, 100], device='cuda:0')
+Noise level tensor([95.7398, 95.7398, 95.7398, 95.7398], device='cuda:0') -> tensor([60.0261, 60.0261, 60.0261, 60.0261], device='cuda:0')
+Step tensor([100, 100, 100, 100], device='cuda:0') -> tensor([150, 150, 150, 150], device='cuda:0')
+Noise level tensor([60.0261, 60.0261, 60.0261, 60.0261], device='cuda:0') -> tensor([38.5958, 38.5958, 38.5958, 38.5958], device='cuda:0')
+Step tensor([150, 150, 150, 150], device='cuda:0') -> tensor([200, 200, 200, 200], device='cuda:0')
+Noise level tensor([38.5958, 38.5958, 38.5958, 38.5958], device='cuda:0') -> tensor([25.4464, 25.4464, 25.4464, 25.4464], device='cuda:0')
+Step tensor([200, 200, 200, 200], device='cuda:0') -> tensor([250, 250, 250, 250], device='cuda:0')
+Noise level tensor([25.4464, 25.4464, 25.4464, 25.4464], device='cuda:0') -> tensor([17.1982, 17.1982, 17.1982, 17.1982], device='cuda:0')
+Step tensor([250, 250, 250, 250], device='cuda:0') -> tensor([300, 300, 300, 300], device='cuda:0')
+Noise level tensor([17.1982, 17.1982, 17.1982, 17.1982], device='cuda:0') -> tensor([11.9100, 11.9100, 11.9100, 11.9100], device='cuda:0')
+Step tensor([300, 300, 300, 300], device='cuda:0') -> tensor([350, 350, 350, 350], device='cuda:0')
+Noise level tensor([11.9100, 11.9100, 11.9100, 11.9100], device='cuda:0') -> tensor([8.4448, 8.4448, 8.4448, 8.4448], device='cuda:0')
+Step tensor([350, 350, 350, 350], device='cuda:0') -> tensor([400, 400, 400, 400], device='cuda:0')
+Noise level tensor([8.4448, 8.4448, 8.4448, 8.4448], device='cuda:0') -> tensor([6.1239, 6.1239, 6.1239, 6.1239], device='cuda:0')
+Step tensor([400, 400, 400, 400], device='cuda:0') -> tensor([450, 450, 450, 450], device='cuda:0')
+Noise level tensor([6.1239, 6.1239, 6.1239, 6.1239], device='cuda:0') -> tensor([4.5340, 4.5340, 4.5340, 4.5340], device='cuda:0')
+Step tensor([450, 450, 450, 450], device='cuda:0') -> tensor([500, 500, 500, 500], device='cuda:0')
+Noise level tensor([4.5340, 4.5340, 4.5340, 4.5340], device='cuda:0') -> tensor([3.4195, 3.4195, 3.4195, 3.4195], device='cuda:0')
+Step tensor([500, 500, 500, 500], device='cuda:0') -> tensor([550, 550, 550, 550], device='cuda:0')
+Noise level tensor([3.4195, 3.4195, 3.4195, 3.4195], device='cuda:0') -> tensor([2.6189, 2.6189, 2.6189, 2.6189], device='cuda:0')
+Step tensor([550, 550, 550, 550], device='cuda:0') -> tensor([600, 600, 600, 600], device='cuda:0')
+Noise level tensor([2.6189, 2.6189, 2.6189, 2.6189], device='cuda:0') -> tensor([2.0288, 2.0288, 2.0288, 2.0288], device='cuda:0')
+Step tensor([600, 600, 600, 600], device='cuda:0') -> tensor([650, 650, 650, 650], device='cuda:0')
+Noise level tensor([2.0288, 2.0288, 2.0288, 2.0288], device='cuda:0') -> tensor([1.5818, 1.5818, 1.5818, 1.5818], device='cuda:0')
+Step tensor([650, 650, 650, 650], device='cuda:0') -> tensor([700, 700, 700, 700], device='cuda:0')
+Noise level tensor([1.5818, 1.5818, 1.5818, 1.5818], device='cuda:0') -> tensor([1.2330, 1.2330, 1.2330, 1.2330], device='cuda:0')
+Step tensor([700, 700, 700, 700], device='cuda:0') -> tensor([750, 750, 750, 750], device='cuda:0')
+Noise level tensor([1.2330, 1.2330, 1.2330, 1.2330], device='cuda:0') -> tensor([0.9523, 0.9523, 0.9523, 0.9523], device='cuda:0')
+Step tensor([750, 750, 750, 750], device='cuda:0') -> tensor([800, 800, 800, 800], device='cuda:0')
+Noise level tensor([0.9523, 0.9523, 0.9523, 0.9523], device='cuda:0') -> tensor([0.7189, 0.7189, 0.7189, 0.7189], device='cuda:0')
+Step tensor([800, 800, 800, 800], device='cuda:0') -> tensor([850, 850, 850, 850], device='cuda:0')
+Noise level tensor([0.7189, 0.7189, 0.7189, 0.7189], device='cuda:0') -> tensor([0.5179, 0.5179, 0.5179, 0.5179], device='cuda:0')
+Step tensor([850, 850, 850, 850], device='cuda:0') -> tensor([900, 900, 900, 900], device='cuda:0')
+Noise level tensor([0.5179, 0.5179, 0.5179, 0.5179], device='cuda:0') -> tensor([0.3387, 0.3387, 0.3387, 0.3387], device='cuda:0')
+Step tensor([900, 900, 900, 900], device='cuda:0') -> tensor([950, 950, 950, 950], device='cuda:0')
+Noise level tensor([0.3387, 0.3387, 0.3387, 0.3387], device='cuda:0') -> tensor([0.1727, 0.1727, 0.1727, 0.1727], device='cuda:0')
+Step tensor([950, 950, 950, 950], device='cuda:0') -> tensor([1000, 1000, 1000, 1000], device='cuda:0')
+Noise level tensor([0.1727, 0.1727, 0.1727, 0.1727], device='cuda:0') -> tensor([0., 0., 0., 0.], device='cuda:0')
+t tensor([785, 581, 562,  43, 954, 422, 216, 627, 802, 163, 553, 107, 662, 230,
+         83, 893], device='cuda:0') tensor([  0.7849,   2.2332,   2.4611, 102.4128,   0.1598,   5.3521,  22.3880,
+          1.7729,   0.7103,  34.5508,   2.5784,  56.3417,   1.4904,  20.0566,
+         70.1528,   0.3628], device='cuda:0')
+r tensor([790, 586, 567,  48, 959, 427, 221, 632, 807, 168, 558, 112, 667, 235,
+         88, 898], device='cuda:0') tensor([ 0.7625,  2.1772,  2.3986, 97.5957,  0.1436,  5.1936, 21.5210,  1.7294,
+         0.6891, 33.1254,  2.5125, 53.8656,  1.4539, 19.2932, 66.9885,  0.3455],
+       device='cuda:0')
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/autograd/graph.py:825: UserWarning: cuDNN SDPA backward got grad_output.strides() != output.strides(), attempting to materialize a grad_output with matching strides... (Triggered internally at /opt/conda/conda-bld/pytorch_1728945388038/work/aten/src/ATen/native/cudnn/MHA.cpp:674.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/autograd/graph.py:825: UserWarning: cuDNN SDPA backward got grad_output.strides() != output.strides(), attempting to materialize a grad_output with matching strides... (Triggered internally at /opt/conda/conda-bld/pytorch_1728945388038/work/aten/src/ATen/native/cudnn/MHA.cpp:674.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+tick 0    	step 1	loss nan  	time 37s         	sec/tick 12.1   	sec/kimg 378.40 	maintenance 25.4  	cpumem 2.20  	gpumem 29.33 	reserved 30.96 
+t tensor([414, 640,  60, 533, 751, 887, 877, 657,  16, 874, 871, 943, 227, 978,
+        422, 636], device='cuda:0') tensor([5.6183e+00, 1.6621e+00, 8.7029e+01, 2.8632e+00, 9.4724e-01, 3.8368e-01,
+        4.1900e-01, 1.5279e+00, 1.3343e+02, 4.2973e-01, 4.4051e-01, 1.9541e-01,
+        2.0532e+01, 8.2592e-02, 5.3521e+00, 1.6954e+00], device='cuda:0')
+r tensor([419, 645,  65, 538, 756, 892, 882, 662,  21, 879, 876, 948, 232, 983,
+        427, 641], device='cuda:0') tensor([5.4501e+00, 1.6215e+00, 8.3007e+01, 2.7887e+00, 9.2214e-01, 3.6625e-01,
+        4.0126e-01, 1.4904e+00, 1.2698e+02, 4.1189e-01, 4.2257e-01, 1.7918e-01,
+        1.9747e+01, 6.6460e-02, 5.1936e+00, 1.6539e+00], device='cuda:0')
+t tensor([328, 654, 712, 487, 845, 876, 683,  53, 696, 223, 476, 658, 922, 286,
+        282, 968], device='cuda:0') tensor([ 9.7962,  1.5507,  1.1603,  3.6738,  0.5369,  0.4226,  1.3427, 93.0288,
+         1.2581, 21.1852,  3.9070,  1.5203,  0.2644, 13.1686, 13.5568,  0.1147],
+       device='cuda:0')
+r tensor([333, 659, 717, 492, 850, 881, 688,  58, 701, 228, 481, 663, 927, 291,
+        287, 973], device='cuda:0') tensor([ 9.4675,  1.5128,  1.1311,  3.5734,  0.5179,  0.4048,  1.3096, 88.6981,
+         1.2268, 20.3718,  3.7989,  1.4831,  0.2479, 12.7018, 13.0737,  0.0987],
+       device='cuda:0')
+t tensor([980, 177, 588, 838,  10, 757, 686, 602, 683, 200, 575, 760, 552, 297,
+        413, 726], device='cuda:0') tensor([7.6150e-02, 3.0726e+01, 2.1553e+00, 5.6381e-01, 1.4165e+02, 9.1718e-01,
+        1.3227e+00, 2.0086e+00, 1.3427e+00, 2.5446e+01, 2.3024e+00, 9.0239e-01,
+        2.5918e+00, 1.2167e+01, 5.6526e+00, 1.0800e+00], device='cuda:0')
+r tensor([985, 182, 593, 843,  15, 762, 691, 607, 688, 205, 580, 765, 557, 302,
+        418, 731], device='cuda:0') tensor([5.9971e-02, 2.9479e+01, 2.1016e+00, 5.4453e-01, 1.3476e+02, 8.9261e-01,
+        1.2900e+00, 1.9589e+00, 1.3096e+00, 2.4442e+01, 2.2445e+00, 8.7808e-01,
+        2.5255e+00, 1.1742e+01, 5.4832e+00, 1.0524e+00], device='cuda:0')
+t tensor([204, 202, 124, 645, 320, 117,  44, 301, 668,  23, 345, 520,  67, 476,
+        945, 923], device='cuda:0') tensor([ 24.6388,  25.0388,  48.4075,   1.6215,  10.3509,  51.5112, 101.4286,
+         11.8257,   1.4467, 124.4936,   8.7312,   3.0684,  81.4564,   3.9070,
+          0.1889,   0.2611], device='cuda:0')
+r tensor([209, 207, 129, 650, 325, 122,  49, 306, 673,  28, 350, 525,  72, 481,
+        950, 928], device='cuda:0') tensor([ 23.6706,  24.0525,  46.3197,   1.5818,   9.9999,  49.2722,  96.6628,
+         11.4146,   1.4112, 118.5178,   8.4448,   2.9875,  77.7194,   3.7989,
+          0.1727,   0.2446], device='cuda:0')
+t tensor([ 20, 781, 799, 500, 572,   5, 432, 320, 253,  87, 234, 904,  48, 712,
+        484, 311], device='cuda:0') tensor([128.2383,   0.8030,   0.7232,   3.4195,   2.3380, 148.9243,   5.0408,
+         10.3509,  16.8117,  67.6084,  19.4431,   0.3250,  97.5957,   1.1603,
+          3.7357,  11.0204], device='cuda:0')
+r tensor([ 25, 786, 804, 505, 577,  10, 437, 325, 258,  92, 239, 909,  53, 717,
+        489, 316], device='cuda:0') tensor([122.0642,   0.7804,   0.7018,   3.3274,   2.2791, 141.6466,   4.8934,
+          9.9999,  16.1900,  64.5719,  18.7067,   0.3080,  93.0288,   1.1311,
+          3.6332,  10.6423], device='cuda:0')
+t tensor([922, 781, 231, 894, 611, 910, 438, 891, 318, 855, 969, 151, 919, 239,
+        948, 298], device='cuda:0') tensor([ 0.2644,  0.8030, 19.9012,  0.3593,  1.9201,  0.3047,  4.8645,  0.3697,
+        10.4954,  0.4992,  0.1115, 38.2662,  0.2744, 18.7067,  0.1792, 12.0808],
+       device='cuda:0')
+r tensor([927, 786, 236, 899, 616, 915, 443, 896, 323, 860, 974, 156, 924, 244,
+        953, 303], device='cuda:0') tensor([ 0.2479,  0.7804, 19.1446,  0.3421,  1.8727,  0.2878,  4.7234,  0.3524,
+        10.1386,  0.4806,  0.0955, 36.6655,  0.2578, 18.0026,  0.1630, 11.6592],
+       device='cuda:0')
+t tensor([730, 754, 618, 725, 939, 755, 915, 626, 856, 281, 700, 452, 834, 424,
+         45, 677], device='cuda:0') tensor([  1.0579,   0.9321,   1.8541,   1.0856,   0.2085,   0.9271,   0.2878,
+          1.7818,   0.4954,  13.6559,   1.2330,   4.4816,   0.5794,   5.2880,
+        100.4550,   1.3834], device='cuda:0')
+r tensor([735, 759, 623, 730, 944, 760, 920, 631, 861, 286, 705, 457, 839, 429,
+         50, 682], device='cuda:0') tensor([ 1.0308,  0.9073,  1.8085,  1.0579,  0.1922,  0.9024,  0.2711,  1.7380,
+         0.4769, 13.1686,  1.2023,  4.3539,  0.5599,  5.1318, 95.7398,  1.3494],
+       device='cuda:0')
+t tensor([310, 482, 482, 656, 936, 746, 811, 657, 142, 792, 239, 663, 583,  55,
+        910, 925], device='cuda:0') tensor([11.0979,  3.7777,  3.7777,  1.5354,  0.2183,  0.9728,  0.6723,  1.5279,
+        41.3518,  0.7537, 18.7067,  1.4831,  2.2106, 91.2690,  0.3047,  0.2545],
+       device='cuda:0')
+r tensor([315, 487, 487, 661, 941, 751, 816, 662, 147, 797, 244, 668, 588,  60,
+        915, 930], device='cuda:0') tensor([10.7166,  3.6738,  3.6738,  1.4979,  0.2019,  0.9472,  0.6516,  1.4904,
+        39.6041,  0.7318, 18.0026,  1.4467,  2.1553, 87.0289,  0.2878,  0.2380],
+       device='cuda:0')
+t tensor([520, 808, 380, 593, 743, 471, 434, 494, 223, 885, 695, 144, 684, 242,
+        444, 548], device='cuda:0') tensor([ 3.0684,  0.6848,  6.9458,  2.1016,  0.9884,  4.0190,  4.9812,  3.5341,
+        21.1852,  0.3907,  1.2644, 40.6424,  1.3360, 18.2805,  4.6957,  2.6463],
+       device='cuda:0')
+r tensor([525, 813, 385, 598, 748, 476, 439, 499, 228, 890, 700, 149, 689, 247,
+        449, 553], device='cuda:0') tensor([ 2.9875,  0.6640,  6.7284,  2.0493,  0.9625,  3.9070,  4.8359,  3.4383,
+        20.3718,  0.3732,  1.2330, 38.9286,  1.3030, 17.5950,  4.5605,  2.5784],
+       device='cuda:0')
+t tensor([748, 238, 571, 871,  89, 690, 286, 332, 270, 673, 723, 927, 310, 186,
+        555, 401], device='cuda:0') tensor([ 0.9625, 18.8514,  2.3500,  0.4405, 66.3750,  1.2965, 13.1686,  9.5322,
+        14.8047,  1.4112,  1.0969,  0.2479, 11.0979, 28.5227,  2.5518,  6.0860],
+       device='cuda:0')
+r tensor([753, 243, 576, 876,  94, 695, 291, 337, 275, 678, 728, 932, 315, 191,
+        560, 406], device='cuda:0') tensor([ 0.9371, 18.1410,  2.2907,  0.4226, 63.4003,  1.2644, 12.7018,  9.2141,
+        14.2689,  1.3766,  1.0689,  0.2314, 10.7166, 27.3773,  2.4866,  5.9007],
+       device='cuda:0')
+tick 1    	step 11	loss 2.63201	time 1m 26s      	sec/tick 48.7   	sec/kimg 152.20 	maintenance 0.0   	cpumem 2.21  	gpumem 32.95 	reserved 36.25 
+t tensor([241,  54, 153, 183, 246,  78, 529, 701, 363, 566, 472, 957, 449, 866,
+        278,  42], device='cuda:0') tensor([ 18.4213,  92.1442,  37.6166,  29.2362,  17.7297,  73.4851,   2.9246,
+          1.2268,   7.7516,   2.4110,   3.9963,   0.1501,   4.5605,   0.4586,
+         13.9584, 103.4075], device='cuda:0')
+r tensor([246,  59, 158, 188, 251,  83, 534, 706, 368, 571, 477, 962, 454, 871,
+        283,  47], device='cuda:0') tensor([17.7297, 87.8591, 36.0466, 28.0581, 17.0682, 70.1528,  2.8481,  1.1962,
+         7.5034,  2.3500,  3.8851,  0.1340,  4.4300,  0.4405, 13.4585, 98.5387],
+       device='cuda:0')
+t tensor([729, 492, 180, 434, 785, 108, 567, 416, 965, 615, 607, 529, 824, 592,
+        574,  63], device='cuda:0') tensor([ 1.0634,  3.5734, 29.9703,  4.9812,  0.7849, 55.8364,  2.3986,  5.5502,
+         0.1244,  1.8821,  1.9589,  2.9246,  0.6191,  2.1122,  2.3142, 84.5903],
+       device='cuda:0')
+r tensor([734, 497, 185, 439, 790, 113, 572, 421, 970, 620, 612, 534, 829, 597,
+        579,  68], device='cuda:0') tensor([ 1.0361,  3.4762, 28.7583,  4.8359,  0.7625, 53.3852,  2.3380,  5.3846,
+         0.1083,  1.8358,  1.9105,  2.8481,  0.5991,  2.0597,  2.2560, 80.6932],
+       device='cuda:0')
+t tensor([725, 246, 669,  21,   5, 266, 250, 442, 332, 962, 583, 607, 650, 294,
+         55, 265], device='cuda:0') tensor([1.0856e+00, 1.7730e+01, 1.4396e+00, 1.2698e+02, 1.4892e+02, 1.5250e+01,
+        1.7198e+01, 4.7512e+00, 9.5322e+00, 1.3399e-01, 2.2106e+00, 1.9589e+00,
+        1.5818e+00, 1.2431e+01, 9.1269e+01, 1.5364e+01], device='cuda:0')
+r tensor([730, 251, 674,  26,  10, 271, 255, 447, 337, 967, 588, 612, 655, 299,
+         60, 270], device='cuda:0') tensor([1.0579e+00, 1.7068e+01, 1.4042e+00, 1.2087e+02, 1.4165e+02, 1.4696e+01,
+        1.6560e+01, 4.6140e+00, 9.2141e+00, 1.1793e-01, 2.1553e+00, 1.9105e+00,
+        1.5431e+00, 1.1995e+01, 8.7029e+01, 1.4805e+01], device='cuda:0')
+t tensor([285, 749, 896, 482, 165, 773, 213, 354, 964, 613, 679, 200,  90,  44,
+        318, 790], device='cuda:0') tensor([ 13.2644,   0.9574,   0.3524,   3.7777,  33.9724,   0.8401,  22.9276,
+          8.2239,   0.1276,   1.9010,   1.3697,  25.4464,  65.7678, 101.4286,
+         10.4954,   0.7625], device='cuda:0')
+r tensor([290, 754, 901, 487, 170, 778, 218, 359, 969, 618, 684, 205,  95,  49,
+        323, 795], device='cuda:0') tensor([12.7936,  0.9321,  0.3352,  3.6738, 32.5742,  0.8168, 22.0364,  7.9573,
+         0.1115,  1.8541,  1.3360, 24.4416, 62.8235, 96.6628, 10.1386,  0.7405],
+       device='cuda:0')
+t tensor([627, 786, 435, 791,   5, 875, 695,  27, 658, 754, 871, 266, 842, 452,
+        458, 822], device='cuda:0') tensor([  1.7729,   0.7804,   4.9517,   0.7581, 148.9243,   0.4261,   1.2644,
+        119.6871,   1.5203,   0.9321,   0.4405,  15.2504,   0.5484,   4.4816,
+          4.3288,   0.6271], device='cuda:0')
+r tensor([632, 791, 440, 796,  10, 880, 700,  32, 663, 759, 876, 271, 847, 457,
+        463, 827], device='cuda:0') tensor([  1.7294,   0.7581,   4.8074,   0.7362, 141.6466,   0.4083,   1.2330,
+        113.9652,   1.4831,   0.9073,   0.4226,  14.6957,   0.5293,   4.3539,
+          4.2063,   0.6071], device='cuda:0')
+t tensor([234, 603, 810, 761, 205, 555, 354, 919, 485, 554, 138, 912, 847, 246,
+        457, 713], device='cuda:0') tensor([19.4431,  1.9985,  0.6765,  0.8975, 24.4416,  2.5518,  8.2239,  0.2744,
+         3.7149,  2.5650, 42.8130,  0.2979,  0.5293, 17.7297,  4.3539,  1.1545],
+       device='cuda:0')
+r tensor([239, 608, 815, 766, 210, 560, 359, 924, 490, 559, 143, 917, 852, 251,
+        462, 718], device='cuda:0') tensor([18.7067,  1.9491,  0.6557,  0.8733, 23.4823,  2.4866,  7.9573,  0.2578,
+         3.6131,  2.4995, 40.9954,  0.2811,  0.5104, 17.0682,  4.2305,  1.1254],
+       device='cuda:0')
+t tensor([201, 365, 416, 346, 951, 141, 109, 300, 118, 393, 862, 739,  99, 352,
+        148, 783], device='cuda:0') tensor([25.2417,  7.6511,  5.5502,  8.6730,  0.1695, 41.7117, 55.3362, 11.9100,
+        51.0544,  6.3974,  0.4733,  1.0094, 60.5742,  8.3335, 39.2647,  0.7939],
+       device='cuda:0')
+r tensor([206, 370, 421, 351, 956, 146, 114, 305, 123, 398, 867, 744, 104, 357,
+        153, 788], device='cuda:0') tensor([24.2462,  7.4068,  5.3846,  8.3889,  0.1533, 39.9468, 52.9096, 11.4954,
+        48.8377,  6.2005,  0.4550,  0.9832, 57.8887,  8.0627, 37.6166,  0.7714],
+       device='cuda:0')
+t tensor([855, 521, 459, 909, 980, 100, 439, 131, 144, 337, 711, 775, 935, 115,
+        833,  29], device='cuda:0') tensor([4.9917e-01, 3.0520e+00, 4.3040e+00, 3.0803e-01, 7.6150e-02, 6.0026e+01,
+        4.8359e+00, 4.5513e+01, 4.0642e+01, 9.2141e+00, 1.1663e+00, 8.3072e-01,
+        2.2154e-01, 5.2439e+01, 5.8332e-01, 1.1736e+02], device='cuda:0')
+r tensor([860, 526, 464, 914, 985, 105, 444, 136, 149, 342, 716, 780, 940, 120,
+        838,  34], device='cuda:0') tensor([4.8062e-01, 2.9716e+00, 4.1824e+00, 2.9118e-01, 5.9971e-02, 5.7368e+01,
+        4.6957e+00, 4.3566e+01, 3.8929e+01, 8.9087e+00, 1.1369e+00, 8.0762e-01,
+        2.0519e-01, 5.0154e+01, 5.6381e-01, 1.1176e+02], device='cuda:0')
+t tensor([274, 606, 602, 339,  35, 340, 802, 656,  72, 220, 276, 772, 894, 176,
+        562, 479], device='cuda:0') tensor([ 14.3742,   1.9687,   2.0086,   9.0904, 110.6777,   9.0294,   0.7103,
+          1.5354,  77.7194,  21.6913,  14.1645,   0.8448,   0.3593,  30.9822,
+          2.4611,   3.8417], device='cuda:0')
+r tensor([279, 611, 607, 344,  40, 345, 807, 661,  77, 225, 281, 777, 899, 181,
+        567, 484], device='cuda:0') tensor([ 13.8567,   1.9201,   1.9589,   8.7899, 105.4292,   8.7312,   0.6891,
+          1.4979,  74.1725,  20.8554,  13.6559,   0.8214,   0.3421,  29.7233,
+          2.3986,   3.7357], device='cuda:0')
+t tensor([751, 269, 769, 494, 821, 843,  34, 844, 885, 307, 656, 366, 591, 241,
+        437, 405], device='cuda:0') tensor([  0.9472,  14.9147,   0.8589,   3.5341,   0.6312,   0.5445, 111.7617,
+          0.5407,   0.3907,  11.3344,   1.5354,   7.6015,   2.1229,  18.4213,
+          4.8934,   5.9372], device='cuda:0')
+r tensor([756, 274, 774, 499, 826, 848,  39, 849, 890, 312, 661, 371, 596, 246,
+        442, 410], device='cuda:0') tensor([  0.9221,  14.3742,   0.8354,   3.4383,   0.6111,   0.5255, 106.4564,
+          0.5217,   0.3732,  10.9435,   1.4979,   7.3591,   2.0701,  17.7297,
+          4.7512,   5.7574], device='cuda:0')
+tick 2    	step 21	loss 1.01994	time 2m 16s      	sec/tick 49.3   	sec/kimg 154.15 	maintenance 0.1   	cpumem 2.21  	gpumem 32.95 	reserved 36.25 
+t tensor([596, 405,  23, 499, 685,  10, 161, 210,  88, 937,  36, 584, 854, 851,
+        443, 903], device='cuda:0') tensor([  2.0701,   5.9372, 124.4936,   3.4383,   1.3293, 141.6466,  35.1405,
+         23.4823,  66.9885,   0.2150, 109.6052,   2.1994,   0.5029,   0.5141,
+          4.7234,   0.3284], device='cuda:0')
+r tensor([601, 410,  28, 504, 690,  15, 166, 215,  93, 942,  41, 589, 859, 856,
+        448, 908], device='cuda:0') tensor([  2.0187,   5.7574, 118.5178,   3.3456,   1.2965, 134.7587,  33.6874,
+         22.5662,  63.9831,   0.1987, 104.4129,   2.1445,   0.4843,   0.4954,
+          4.5872,   0.3114], device='cuda:0')
+t tensor([709, 398, 848, 739, 459, 534, 438, 921, 908, 714,   7, 487, 658, 561,
+        511, 614], device='cuda:0') tensor([  1.1782,   6.2005,   0.5255,   1.0094,   4.3040,   2.8481,   4.8645,
+          0.2678,   0.3114,   1.1486, 145.9650,   3.6738,   1.5203,   2.4738,
+          3.2207,   1.8915], device='cuda:0')
+r tensor([714, 403, 853, 744, 464, 539, 443, 926, 913, 719,  12, 492, 663, 566,
+        516, 619], device='cuda:0') tensor([  1.1486,   6.0110,   0.5066,   0.9832,   4.1824,   2.7740,   4.7234,
+          0.2512,   0.2945,   1.1196, 138.8460,   3.5734,   1.4831,   2.4110,
+          3.1350,   1.8449], device='cuda:0')
+t tensor([608, 318, 369, 548, 849, 795,  15, 832, 306, 941, 922, 515, 246,  79,
+        814, 522], device='cuda:0') tensor([  1.9491,  10.4954,   7.4549,   2.6463,   0.5217,   0.7405, 134.7587,
+          0.5873,  11.4146,   0.2019,   0.2644,   3.1519,  17.7297,  72.8047,
+          0.6598,   3.0357], device='cuda:0')
+r tensor([613, 323, 374, 553, 854, 800,  20, 837, 311, 946, 927, 520, 251,  84,
+        819, 527], device='cuda:0') tensor([  1.9010,  10.1386,   7.2181,   2.5784,   0.5029,   0.7189, 128.2383,
+          0.5677,  11.0204,   0.1857,   0.2479,   3.0684,  17.0682,  69.5068,
+          0.6393,   2.9558], device='cuda:0')
+t tensor([469, 140, 885, 587, 810, 629, 580, 316, 697, 732, 647, 535, 290, 356,
+        642,  45], device='cuda:0') tensor([  4.0649,  42.0752,   0.3907,   2.1663,   0.6765,   1.7554,   2.2445,
+         10.6423,   1.2518,   1.0470,   1.6055,   2.8331,  12.7936,   8.1160,
+          1.6458, 100.4550], device='cuda:0')
+r tensor([474, 145, 890, 592, 815, 634, 585, 321, 702, 737, 652, 540, 295, 361,
+        647,  50], device='cuda:0') tensor([ 3.9514, 40.2929,  0.3732,  2.1122,  0.6557,  1.7124,  2.1883, 10.2795,
+         1.2206,  1.0200,  1.5662,  2.7595, 12.3424,  7.8537,  1.6055, 95.7398],
+       device='cuda:0')
+t tensor([760, 231, 743, 432, 765, 356, 839, 710, 454, 536, 890, 254, 387, 329,
+        601, 471], device='cuda:0') tensor([ 0.9024, 19.9012,  0.9884,  5.0408,  0.8781,  8.1160,  0.5599,  1.1722,
+         4.4300,  2.8182,  0.3732, 16.6852,  6.6437,  9.7294,  2.0187,  4.0190],
+       device='cuda:0')
+r tensor([765, 236, 748, 437, 770, 361, 844, 715, 459, 541, 895, 259, 392, 334,
+        606, 476], device='cuda:0') tensor([ 0.8781, 19.1446,  0.9625,  4.8934,  0.8542,  7.8537,  0.5407,  1.1427,
+         4.3040,  2.7451,  0.3559, 16.0689,  6.4376,  9.4034,  1.9687,  3.9070],
+       device='cuda:0')
+t tensor([852, 789,  52, 738, 668, 292, 713, 637, 268, 839,  37, 629, 176, 854,
+        890, 203], device='cuda:0') tensor([  0.5104,   0.7670,  93.9229,   1.0147,   1.4467,  12.6108,   1.1545,
+          1.6871,  15.0256,   0.5599, 108.5443,   1.7554,  30.9822,   0.5029,
+          0.3732,  24.8379], device='cuda:0')
+r tensor([857, 794,  57, 743, 673, 297, 718, 642, 273, 844,  42, 634, 181, 859,
+        895, 208], device='cuda:0') tensor([  0.4917,   0.7449,  89.5460,   0.9884,   1.4112,  12.1673,   1.1254,
+          1.6458,  14.4805,   0.5407, 103.4075,   1.7124,  29.7233,   0.4843,
+          0.3559,  23.8607], device='cuda:0')
+t tensor([ 93, 773, 391, 225, 730, 505, 218, 173, 973, 872, 776, 311, 631, 835,
+        692, 505], device='cuda:0') tensor([63.9831,  0.8401,  6.4782, 20.8554,  1.0579,  3.3274, 22.0364, 31.7668,
+         0.0987,  0.4369,  0.8261, 11.0204,  1.7380,  0.5755,  1.2836,  3.3274],
+       device='cuda:0')
+r tensor([ 98, 778, 396, 230, 735, 510, 223, 178, 978, 877, 781, 316, 636, 840,
+        697, 510], device='cuda:0') tensor([61.1279,  0.8168,  6.2784, 20.0566,  1.0308,  3.2382, 21.1852, 30.4714,
+         0.0826,  0.4190,  0.8030, 10.6423,  1.6954,  0.5561,  1.2518,  3.2382],
+       device='cuda:0')
+t tensor([ 84, 165, 836, 200, 831, 961, 580, 648,  58, 818, 932, 282, 426, 607,
+         12, 227], device='cuda:0') tensor([6.9507e+01, 3.3972e+01, 5.7158e-01, 2.5446e+01, 5.9120e-01, 1.3721e-01,
+        2.2445e+00, 1.5975e+00, 8.8698e+01, 6.4341e-01, 2.3139e-01, 1.3557e+01,
+        5.2249e+00, 1.9589e+00, 1.3885e+02, 2.0532e+01], device='cuda:0')
+r tensor([ 89, 170, 841, 205, 836, 966, 585, 653,  63, 823, 937, 287, 431, 612,
+         17, 232], device='cuda:0') tensor([6.6375e+01, 3.2574e+01, 5.5221e-01, 2.4442e+01, 5.7158e-01, 1.2114e-01,
+        2.1883e+00, 1.5584e+00, 8.4590e+01, 6.2311e-01, 2.1499e-01, 1.3074e+01,
+        5.0709e+00, 1.9105e+00, 1.3211e+02, 1.9747e+01], device='cuda:0')
+t tensor([832, 624, 930, 772, 755, 611, 270, 675,  96,   2, 849, 593, 373, 628,
+        200, 948], device='cuda:0') tensor([  0.5873,   1.7996,   0.2380,   0.8448,   0.9271,   1.9201,  14.8047,
+          1.3973,  62.2525, 153.4879,   0.5217,   2.1016,   7.2647,   1.7641,
+         25.4464,   0.1792], device='cuda:0')
+r tensor([837, 629, 935, 777, 760, 616, 275, 680, 101,   7, 854, 598, 378, 633,
+        205, 953], device='cuda:0') tensor([  0.5677,   1.7554,   0.2215,   0.8214,   0.9024,   1.8727,  14.2689,
+          1.3629,  59.4836, 145.9650,   0.5029,   2.0493,   7.0352,   1.7209,
+         24.4416,   0.1630], device='cuda:0')
+t tensor([236, 323, 579, 220, 302, 178, 179, 389, 552,  89,  62, 185, 633, 980,
+        427, 832], device='cuda:0') tensor([1.9145e+01, 1.0139e+01, 2.2560e+00, 2.1691e+01, 1.1742e+01, 3.0471e+01,
+        3.0220e+01, 6.5603e+00, 2.5918e+00, 6.6375e+01, 8.5395e+01, 2.8758e+01,
+        1.7209e+00, 7.6150e-02, 5.1936e+00, 5.8726e-01], device='cuda:0')
+r tensor([241, 328, 584, 225, 307, 183, 184, 394, 557,  94,  67, 190, 638, 985,
+        432, 837], device='cuda:0') tensor([1.8421e+01, 9.7962e+00, 2.1994e+00, 2.0855e+01, 1.1334e+01, 2.9236e+01,
+        2.8996e+01, 6.3574e+00, 2.5255e+00, 6.3400e+01, 8.1456e+01, 2.7602e+01,
+        1.6787e+00, 5.9971e-02, 5.0408e+00, 5.6769e-01], device='cuda:0')
+tick 3    	step 31	loss 0.93215	time 3m 05s      	sec/tick 49.4   	sec/kimg 154.44 	maintenance 0.1   	cpumem 2.21  	gpumem 32.95 	reserved 36.25 
+t tensor([271, 546, 618, 745, 271, 140, 938, 286, 961, 578, 368, 556,  95, 263,
+        394, 600], device='cuda:0') tensor([14.6957,  2.6741,  1.8541,  0.9780, 14.6957, 42.0752,  0.2117, 13.1686,
+         0.1372,  2.2675,  7.5034,  2.5386, 62.8235, 15.5951,  6.3574,  2.0288],
+       device='cuda:0')
+r tensor([276, 551, 623, 750, 276, 145, 943, 291, 966, 583, 373, 561, 100, 268,
+        399, 605], device='cuda:0') tensor([14.1645,  2.6053,  1.8085,  0.9523, 14.1645, 40.2929,  0.1954, 12.7018,
+         0.1211,  2.2106,  7.2647,  2.4738, 60.0261, 15.0256,  6.1620,  1.9786],
+       device='cuda:0')
+t tensor([975, 242, 108, 320,  18, 620, 123, 697, 977, 980, 952, 965, 449, 315,
+        267, 100], device='cuda:0') tensor([9.2239e-02, 1.8281e+01, 5.5836e+01, 1.0351e+01, 1.3080e+02, 1.8358e+00,
+        4.8838e+01, 1.2518e+00, 8.5809e-02, 7.6150e-02, 1.6623e-01, 1.2435e-01,
+        4.5605e+00, 1.0717e+01, 1.5138e+01, 6.0026e+01], device='cuda:0')
+r tensor([980, 247, 113, 325,  23, 625, 128, 702, 982, 985, 957, 970, 454, 320,
+        272, 105], device='cuda:0') tensor([7.6150e-02, 1.7595e+01, 5.3385e+01, 9.9999e+00, 1.2449e+02, 1.7906e+00,
+        4.6729e+01, 1.2206e+00, 6.9694e-02, 5.9971e-02, 1.5009e-01, 1.0829e-01,
+        4.4300e+00, 1.0351e+01, 1.4588e+01, 5.7368e+01], device='cuda:0')
+t tensor([489, 407, 268, 269, 715, 755, 407, 885, 916, 650, 768, 271, 359, 692,
+         33, 971], device='cuda:0') tensor([3.6332e+00, 5.8644e+00, 1.5026e+01, 1.4915e+01, 1.1427e+00, 9.2712e-01,
+        5.8644e+00, 3.9070e-01, 2.8447e-01, 1.5818e+00, 8.6370e-01, 1.4696e+01,
+        7.9573e+00, 1.2836e+00, 1.1286e+02, 1.0508e-01], device='cuda:0')
+r tensor([494, 412, 273, 274, 720, 760, 412, 890, 921, 655, 773, 276, 364, 697,
+         38, 976], device='cuda:0') tensor([3.5341e+00, 5.6873e+00, 1.4480e+01, 1.4374e+01, 1.1139e+00, 9.0239e-01,
+        5.6873e+00, 3.7321e-01, 2.6778e-01, 1.5431e+00, 8.4006e-01, 1.4165e+01,
+        7.7012e+00, 1.2518e+00, 1.0749e+02, 8.9025e-02], device='cuda:0')
+W1207 05:06:47.262000 2798839 site-packages/torch/distributed/elastic/agent/server/api.py:704] Received 1 death signal, shutting down workers
+W1207 05:06:47.265000 2798839 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2798864 closing signal SIGHUP
+W1207 05:06:47.266000 2798839 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 2798865 closing signal SIGHUP
+Traceback (most recent call last):
+  File "/usr1/hcontant/anaconda3/envs/hames/bin/torchrun", line 33, in <module>
+    sys.exit(load_entry_point('torch==2.5.0', 'console_scripts', 'torchrun')())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/run.py", line 919, in main
+    run(args)
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/run.py", line 910, in run
+    elastic_launch(
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 260, in launch_agent
+    result = agent.run()
+             ^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/elastic/metrics/api.py", line 137, in wrapper
+    result = f(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 696, in run
+    result = self._invoke_run(role)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/elastic/agent/server/api.py", line 855, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/usr1/hcontant/anaconda3/envs/hames/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 84, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 2798839 got signal: 1

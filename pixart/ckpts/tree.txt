@@ -1,0 +1,49 @@
+ckpts
+├── pixart
+│   ├── config.json
+│   ├── diffusion_pytorch_model.safetensors
+│   ├── model_index.json
+│   ├── pixart-512
+│   │   └── PixArt-XL-2-512x512.pth
+│   ├── scheduler
+│   │   └── scheduler_config.json
+│   ├── sd-vae-ft-ema
+│   │   ├── config.json
+│   │   └── diffusion_pytorch_model.safetensors
+│   ├── text_encoder
+│   │   ├── config.json
+│   │   ├── model-00001-of-00004.safetensors
+│   │   ├── model-00002-of-00004.safetensors
+│   │   ├── model-00003-of-00004.safetensors
+│   │   ├── model-00004-of-00004.safetensors
+│   │   └── model.safetensors.index.json
+│   ├── tokenizer
+│   │   ├── added_tokens.json
+│   │   ├── special_tokens_map.json
+│   │   ├── spiece.model
+│   │   └── tokenizer_config.json
+│   ├── transformer
+│   │   ├── config.json
+│   │   └── diffusion_pytorch_model.safetensors
+│   └── vae
+│       ├── config.json
+│       └── diffusion_pytorch_model.safetensors
+└── t5
+    ├── config.json
+    ├── generation_config.json
+    ├── model-00001-of-00009.safetensors
+    ├── model-00002-of-00009.safetensors
+    ├── model-00003-of-00009.safetensors
+    ├── model-00004-of-00009.safetensors
+    ├── model-00005-of-00009.safetensors
+    ├── model-00006-of-00009.safetensors
+    ├── model-00007-of-00009.safetensors
+    ├── model-00008-of-00009.safetensors
+    ├── model-00009-of-00009.safetensors
+    ├── model.safetensors.index.json
+    ├── special_tokens_map.json
+    ├── spiece.model
+    ├── tokenizer_config.json
+    └── tokenizer.json
+
+9 directories, 37 files

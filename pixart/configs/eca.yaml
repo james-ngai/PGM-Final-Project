@@ -1,0 +1,77 @@
+desc: PixArt-alpha-bs16x32-fp16-textenc-uniform-skip5-5step-stu-data-2step-lr5e-6-wt=snr-sample-2step-t=4.0
+
+network_kwargs:
+    class_name: networks.pixart_alpha.PixArt_alpha_DDIM
+    img_channels: 4
+    C_1: 0.001
+    C_2: 0.008
+    M: 1000
+    beta_start: .0001
+    beta_end: .02
+    pretrained: true
+    load_encoders: false
+    load_vae: true
+    input_size: 64
+    ckpt_path: /data/locus/project_data/project_data2/zgeng2_babel/ckpt/pixart/pixart-512/PixArt-XL-2-512x512.pth
+    # text_encoder_ckpt_path: /data/locus/project_data/project_data2/zgeng2_babel/ckpt/pixart/pixart-512/t5-v1_1-xxl
+    text_encoder_ckpt_path: /scratch/t5-v1_1-xxl
+
+reward_kwargs:
+    class_name: ImageReward.ImageReward.ImageReward
+    rm_ckpt_path: /data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/ImageReward.pt
+    med_config: /data/locus/project_data/project_data2/zgeng2_babel/ckpt/rewards/img-reward/med_config.json
+
+dataset_kwargs:
+    class_name: dataloader.prompt.PromptDataset
+    file_path: /data/locus/project_data/project_data2/zgeng2_babel/datasets/prompts/HPDv2.jsonl
+
+data_loader_kwargs: 
+    batch_size: 2
+    num_workers: 8
+    prefetch_factor: 4
+    pin_memory: true
+
+loss_kwargs: 
+    class_name: losses.cm_align.ECALoss
+    offset_dfun: phuber
+    phuber_c: 0.03
+    sigma_init: 156.6155
+    sigma_dist: uniform
+    P_mean: 0.0
+    P_std: 3.0
+    rewrad_loss_scale: 1.0
+    cfg_scale: 4.5 
+    loss_type: eca
+
+optimizer_kwargs:
+    class_name: torch.optim.Adam
+    lr: 5.0e-6
+    betas: [0.9, 0.999]
+    eps: 1.0e-11
+
+# ema_kwargs:
+#     class_name: training.utils.ema.EDMEma
+#     batch_size: 128 # batchsize \times grad_accumulation
+#     ema_halflife_kimg: 500_000 
+#     ema_rampup_ratio: null
+
+ema_kwargs:
+    class_name: training.utils.ema.SimpleEMA
+    decay: 0.9
+
+training_args:
+    run_dir: ./ect-run
+    loss_scaling: 1.0 # 100.0 as default # only for generator
+    total_steps: 20000
+    grad_accumulation: 32
+    seed: 112
+    use_rlhf: false
+    step_per_tick: 10
+    image_tick: 10
+    snapshot_ticks: 1000
+    state_dump_ticks: 10000
+    use_fsdp: false
+    precision: bf16
+    # resume_pt: None
+    
+    
